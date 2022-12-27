@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 import { idText } from "typescript";
+import { Category } from "../../types/Category";
 
 import { CreateProduct, Product } from "../../types/Product";
 
@@ -42,7 +43,7 @@ const productSlice = createSlice({
         deleteProduct: (state,action:PayloadAction<number>) => {
             return state.filter(item => item.id !== action.payload)
         }
-    } /* manage sync process */,
+    }, /* manage sync process */
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
             if (action.payload && "message" in action.payload) {

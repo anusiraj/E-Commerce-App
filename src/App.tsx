@@ -1,9 +1,7 @@
 import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
-import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from './hooks/reduxHook'
-import { createProduct, fetchAllProducts, sortByName } from './redux/reducer/productReducer'
 import { Product } from './types/Product'
 import Home from './components/homeComponent'
+import './Style.css';
 
 const App = () => {
   return (
