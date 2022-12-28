@@ -2,7 +2,7 @@ import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 
-import { createProduct, fetchAllProducts, sortByName, deleteProduct} from '../redux/reducer/productReducer'
+import { createProduct, fetchAllProducts, sortByPrice, deleteProduct} from '../redux/reducer/productReducer'
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
 
 import { Product } from '../types/Product'
@@ -19,8 +19,11 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(1)
   console.log("categoryID-"+ selectedCategory)
 
-  const sortName = () => {
-    dispatch(sortByName("asc"))
+  const sortPriceAsc = () => {
+    dispatch(sortByPrice("asc"))
+  }
+  const sortPriceDesc = () => {
+    dispatch(sortByPrice("desc"))
   }
   const addProduct = () => {
     dispatch(createProduct({
@@ -43,18 +46,19 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchAllCategories())
   },[])  
-  function handleCategoryChange(event:any) {
-    setSelectedCategory(event.target.value)
+  function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement> | any) {
+    setSelectedCategory(e.target.value)
   }
   
   return (
     <div className='main'>
-        <button onClick ={sortName}>Sort By Name</button>
+        <button onClick ={sortPriceAsc}>Price low to high</button>
+        <button onClick ={sortPriceDesc}>Price high to low</button>
         <button onClick ={addProduct}>Add Product</button>
         <label htmlFor='searchProduct'>Search product</label>
         <input type = "text" name = "search" id = "search" value = {search} onChange = {(e) => setSearch(e.target.value)}/>
         <label htmlFor='category' className='label'>Filter by Category</label>
-          <select name="category-list" id="category-list" onChange={handleCategoryChange}>
+          <select name="category-list" id="category-list" onChange={(e) => handleCategoryChange(e)}>
               {categories.map(category =>
                   <option key={category.id} value={category.id}>
                     {category.name}

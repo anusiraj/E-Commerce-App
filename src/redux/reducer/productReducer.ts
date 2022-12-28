@@ -19,7 +19,7 @@ export const fetchAllProducts = createAsyncThunk(
         }
         else{
             try {
-                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products`)
+                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products?limit=7&offset=5`)
                 const data:Product[]|Error = await jsondata.json()
                 return data
                 } catch (e: any) {
@@ -43,11 +43,11 @@ const productSlice = createSlice({
     name: "productSlice",
     initialState: initialState,
     reducers: {
-        sortByName: (state, action:PayloadAction<"asc"|"desc">) => {
+        sortByPrice: (state, action:PayloadAction<"asc"|"desc">) => {
             if (action.payload === "asc") {
-                state.sort((a, b) => a.title.localeCompare(b.title))
+                state.sort((a, b) => (a.price > b.price ? 1 : -1));
             } else {
-                state.sort((a, b) => b.title.localeCompare(a.title))
+                state.sort((a, b) => (b.price > a.price ? 1 : -1));
             }
         },
         deleteProduct: (state,action:PayloadAction<number>) => {
@@ -81,5 +81,5 @@ const productSlice = createSlice({
     }
 })
 const productReducer = productSlice.reducer
-export const {sortByName,deleteProduct} = productSlice.actions
+export const {sortByPrice,deleteProduct} = productSlice.actions
 export default productReducer
