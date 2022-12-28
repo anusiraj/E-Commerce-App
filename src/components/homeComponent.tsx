@@ -9,11 +9,14 @@ import { Product } from '../types/Product'
 
 
 const Home = () => {
-  const products = useAppSelector(state => state.productReducer)
+  const [search, setSearch] = useState("")
+  const products = useAppSelector(state => state.productReducer.filter(item => {
+    return item.title.toLowerCase().indexOf(search.toLowerCase()) > -1
+  }))
   const categories = useAppSelector(state => state.categoryReducer)
   const dispatch = useAppDispatch()
   console.log("Product List: ", products)
-  const [selectedCategory, setSelectedCategory] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(1)
   console.log("categoryID-"+ selectedCategory)
 
   const sortName = () => {
@@ -48,6 +51,8 @@ const Home = () => {
     <div className='main'>
         <button onClick ={sortName}>Sort By Name</button>
         <button onClick ={addProduct}>Add Product</button>
+        <label htmlFor='searchProduct'>Search product</label>
+        <input type = "text" name = "search" id = "search" value = {search} onChange = {(e) => setSearch(e.target.value)}/>
         <label htmlFor='category' className='label'>Filter by Category</label>
           <select name="category-list" id="category-list" onChange={handleCategoryChange}>
               {categories.map(category =>
