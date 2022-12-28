@@ -1,20 +1,30 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
-import { idText } from "typescript";
-import { Category } from "../../types/Category";
 
 import { CreateProduct, Product } from "../../types/Product";
 
 const initialState: Product[] = []
 export const fetchAllProducts = createAsyncThunk(
     "fetchAllProducts",
-    async () => {
-        try {
-            const jsondata = await fetch("https://api.escuelajs.co/api/v1/products")
+    async (payload: {selectedCategory : number}) => {
+        const { selectedCategory } = payload;
+        if(selectedCategory>1) {
+            try {
+            const jsondata = await fetch(`https://api.escuelajs.co/api/v1/categories/${selectedCategory}/products`)
             const data:Product[]|Error = await jsondata.json()
             return data
-        } catch (e: any) {
-            console.log(e)
+            } catch (e: any) {
+                console.log(e)
+            }
+        }
+        else{
+            try {
+                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products`)
+                const data:Product[]|Error = await jsondata.json()
+                return data
+                } catch (e: any) {
+                    console.log(e)
+                }
         }
     }
 )
@@ -52,7 +62,6 @@ const productSlice = createSlice({
                 return state
             }
             return action.payload
-            //setState(action.payload)
         })
         build.addCase(fetchAllProducts.rejected, (state, action) => {
             console.log("error in fetching data")

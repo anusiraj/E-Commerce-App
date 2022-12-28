@@ -1,10 +1,11 @@
 import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
-import { createProduct, fetchAllProducts, sortByName, deleteProduct } from '../redux/reducer/productReducer'
+
+import { createProduct, fetchAllProducts, sortByName, deleteProduct} from '../redux/reducer/productReducer'
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
+
 import { Product } from '../types/Product'
-import { Category } from '../types/Category'
 
 
 const Home = () => {
@@ -12,6 +13,9 @@ const Home = () => {
   const categories = useAppSelector(state => state.categoryReducer)
   const dispatch = useAppDispatch()
   console.log("Product List: ", products)
+  const [selectedCategory, setSelectedCategory] = useState(1);
+  console.log("categoryID-"+ selectedCategory)
+
   const sortName = () => {
     dispatch(sortByName("asc"))
   }
@@ -27,24 +31,25 @@ const Home = () => {
   const onDelete = (id:number) => {
     dispatch(deleteProduct(id))
   }
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const cat_id = e.target.value;
-    console.log(cat_id);
-    // dispatch(productByCategory(cat_id))
-  }
   useEffect(() => {
-    dispatch(fetchAllProducts())
-  },[])
+    const payload = {
+      selectedCategory
+    }
+    dispatch(fetchAllProducts(payload))
+  },[selectedCategory])
   useEffect(() => {
     dispatch(fetchAllCategories())
   },[])  
+  function handleCategoryChange(event:any) {
+    setSelectedCategory(event.target.value)
+  }
   
   return (
     <div className='main'>
         <button onClick ={sortName}>Sort By Name</button>
         <button onClick ={addProduct}>Add Product</button>
-        <label htmlFor='category' className='label'>Category</label>
-          <select onChange={(e) => handleSelect(e)}>
+        <label htmlFor='category' className='label'>Filter by Category</label>
+          <select name="category-list" id="category-list" onChange={handleCategoryChange}>
               {categories.map(category =>
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -55,6 +60,7 @@ const Home = () => {
           {products.map(product => (
           <div className='product_list' key = {product.id}>
             <img src={product.images[0]} id = "product_img"></img>
+            <p>Product Category Id: {product.category.id}</p>
             <p>{product.title}</p>
             <p>{product.price}</p>
             <button onClick={() => onDelete(product.id)}>Delete Product</button></div>
