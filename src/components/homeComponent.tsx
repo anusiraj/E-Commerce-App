@@ -1,14 +1,19 @@
 import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
+import { toast } from 'react-toastify'
 
 import { createProduct, fetchAllProducts, sortByPrice, deleteProduct} from '../redux/reducer/productReducer'
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
+import { setUser, logout } from '../redux/reducer/authReducer'
 
 import { Product } from '../types/Product'
+import { useNavigate } from 'react-router-dom'
+
 
 
 const Home = () => {
+  const navigate = useNavigate()
   const [search, setSearch] = useState("")
   const products = useAppSelector(state => state.productReducer.filter(item => {
     return item.title.toLowerCase().indexOf(search.toLowerCase()) > -1
@@ -46,10 +51,14 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchAllCategories())
   },[])  
-  function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement> | any) {
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement> | any) => {
     setSelectedCategory(e.target.value)
   }
-  
+  const handleClick = () => {
+    dispatch(logout())
+    toast.success("User logout successfully")
+    navigate('/auth')
+  }
   return (
     <div className='main'>
         <button onClick ={sortPriceAsc}>Price low to high</button>
@@ -65,6 +74,7 @@ const Home = () => {
                   </option>
               )}
           </select>
+          <button type = "submit" onClick={() => handleClick()}>Logout</button>
         <div className='products'>
           {products.map(product => (
           <div className='product_list' key = {product.id}>
