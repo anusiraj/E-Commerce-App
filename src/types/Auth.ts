@@ -1,4 +1,4 @@
 export interface AuthType {
-    name: string | null
+    // name: string | null
     token: string | null
 }

@@ -30,6 +30,7 @@ const Home = () => {
   const sortPriceDesc = () => {
     dispatch(sortByPrice("desc"))
   }
+  //addProduct need to change
   const addProduct = () => {
     dispatch(createProduct({
       title: "Revlon London",

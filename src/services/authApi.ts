@@ -5,7 +5,7 @@ export const authApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "https://api.escuelajs.co/api/v1"
     }),
-    endpoints: (builder:any) => ({
+    endpoints: (builder) => ({
         loginUser: builder.mutation({
             query:( body: {email:string; password:string}) => {
                 return{
@@ -15,6 +15,15 @@ export const authApi = createApi({
                 }
             },
         }),
+        registerUser: builder.mutation({
+            query:( body: {email:string; password:string; name: string; avatar: string}) => {
+                return{
+                    url: "/users/",
+                    method: "post",
+                    body
+                }
+            },
+        }),
     }),
 })
-export const { useLoginUserMutation } = authApi
+export const { useLoginUserMutation, useRegisterUserMutation } = authApi

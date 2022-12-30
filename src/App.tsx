@@ -5,22 +5,26 @@ import { ToastContainer } from 'react-toastify'
 import { Product } from './types/Product'
 import Home from './components/homeComponent'
 import Auth from './components/Auth'
+import PrivateRoute from './components/PrivateRouteComponent'
 
 import './Style.css';
 
 const App = () => {
   return (
-    <div className = 'app'>
+      <div className = 'app'>
       <BrowserRouter>
       <ToastContainer/>
         <Routes>
           <Route path = "/" element = {<Navigate to = '/auth' replace />} />
           <Route path = "/auth" element = {<Auth/>}/>
-          <Route path = "/home" element = {<Home/>}/>
+            <Route path = "/home" element = {<PrivateRoute>
+                                              <Home />
+                                          </PrivateRoute>
+                                          }/>
         </Routes>
       </BrowserRouter>
-      
     </div>
+
   )
 }
 export default App
