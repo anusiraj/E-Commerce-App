@@ -2,6 +2,7 @@ import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import { toast } from 'react-toastify'
+import { Box, Grid, Card, Typography } from '@mui/material'
 
 import { createProduct, fetchAllProducts, sortByPrice, deleteProduct} from '../redux/reducer/productReducer'
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
@@ -61,7 +62,7 @@ const Home = () => {
     navigate('/auth')
   }
   return (
-    <div className='main'>
+    <div>
         <button onClick ={sortPriceAsc}>Price low to high</button>
         <button onClick ={sortPriceDesc}>Price high to low</button>
         <button onClick ={addProduct}>Add Product</button>
@@ -76,18 +77,20 @@ const Home = () => {
               )}
           </select>
           <button type = "submit" onClick={() => handleClick()}>Logout</button>
-        <div className='products'>
-          {products.map(product => (
-          <div className='product_list' key = {product.id}>
-            <img src={product.images[0]} id = "product_img"></img>
-            <p>Product Category Id: {product.category.id}</p>
-            <p>{product.title}</p>
-            <p>{product.price}</p>
-            <button onClick={() => onDelete(product.id)}>Delete Product</button></div>
-            ))}
-        </div>
-
+        {/* <Grid container spacing = {2}>
+          <Grid item md = {3}> */}
+              {products.map(product => (
+              <Box className='product_list' key = {product.id}>
+                <Box sx = {{ width: "100%"}} component = 'img' src={product.images[0]} id = "product_img"></Box>
+                <Typography variant = "subtitle1" sx = {{ fontWeight: 'bold'}}>Product Category Id: {product.category.id}</Typography>
+                <Typography variant = 'subtitle1' sx = {{ fontWeight: 'bold'}}>{product.title}</Typography>
+                <Typography variant = 'subtitle1' sx = {{ fontWeight: 'bold'}}>{product.price}</Typography>
+                <button onClick={() => onDelete(product.id)}>Delete Product</button></Box>
+                ))}
+          {/* </Grid>
+    </Grid> */}
     </div>
+
   )
 }
 

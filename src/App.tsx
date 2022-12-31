@@ -1,7 +1,7 @@
 import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-
+import { Box } from '@mui/material'
 import { Product } from './types/Product'
 import Home from './components/homeComponent'
 import Auth from './components/Auth'
@@ -14,7 +14,7 @@ const App = () => {
       <div className = 'app'>
       <BrowserRouter>
       <ToastContainer/>
-        <Routes>
+       <Routes>
           <Route path = "/" element = {<Navigate to = '/auth' replace />} />
           <Route path = "/auth" element = {<Auth/>}/>
             <Route path = "/home" element = {<PrivateRoute>
