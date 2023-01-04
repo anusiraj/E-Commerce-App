@@ -17,23 +17,23 @@ import './Style.css';
 const App = () => {
   const [selectedId, setSelectedId] = useState(1);
   const [productDetailedinfo, setProductDetailedInfo] = useState(0);
-const idSelectedHandler = (id:any) => {
-  const idd:number = +id;
-  setProductDetailedInfo(idd);
+  const idSelectedHandler = (id: any) => {
+    const idd: number = +id;
+    setProductDetailedInfo(idd);
   };
   return (
-      <div className = 'app'>
+    <div className='app'>
       <BrowserRouter>
-      <ToastContainer/>  
-       <Routes>
-          <Route path = "/" element = {<Navigate to = '/auth' replace />} />
-          <Route path = "/auth" element = {<Auth/>}/>
-          <Route path = "/home" element = {<PrivateRoute>
-                                              <Home selectId={idSelectedHandler} />
-                                          </PrivateRoute>
-                                          }/>
-          <Route path = "/product" element = {<ProductDetail detailedPId={productDetailedinfo}/>}/>
-          <Route path = "/cart" element = {<Cart/>}/>
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Navigate to='/auth' replace />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/home" element={<PrivateRoute>
+            <Home selectId={idSelectedHandler} />
+          </PrivateRoute>
+          } />
+          <Route path="/product" element={<ProductDetail detailedPId={productDetailedinfo} />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </div>

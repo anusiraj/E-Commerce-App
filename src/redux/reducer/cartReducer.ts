@@ -10,7 +10,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: initialState,
   reducers: {
-    addToCart: (state:any, action:PayloadAction<any>) => {
+    addToCart: (state:any, action:PayloadAction<Product>) => {
       const itemInCart = state.cartItems.find((item:any) => item.id === action.payload.id);
       if (itemInCart) {
         itemInCart.quantity++;
@@ -19,11 +19,11 @@ const cartSlice = createSlice({
       }
     },
     incrementQuantity: (state:any, action) => {
-      const item = state.cart.find((item:any) => item.id === action.payload);
+      const item = state.cartItems.find((item:any) => item.id === action.payload);
       item.quantity++;
     },
     decrementQuantity: (state:any, action) => {
-      const item = state.cart.find((item:any) => item.id === action.payload);
+      const item = state.cartItems.find((item:any) => item.id === action.payload);
       if (item.quantity === 1) {
         item.quantity = 1
       } else {
@@ -31,8 +31,8 @@ const cartSlice = createSlice({
       }
     },
     removeItem: (state:any, action) => {
-      const removeItem = state.cart.filter((item:any) => item.id !== action.payload);
-      state.cart = removeItem;
+      const removeItem = state.cartItems.filter((item:any) => item.id !== action.payload);
+      state.cartItems = removeItem;
     },
   },
 });
@@ -46,6 +46,3 @@ export const {
 } = cartSlice.actions;
 export default cartReducer
 
-function JSONStringify(payload: any) {
-  throw new Error('Function not implemented.');
-}
