@@ -19,7 +19,7 @@ export const fetchAllProducts = createAsyncThunk(
         }
         else{
             try {
-                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products`)
+                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products?offset=3&limit=500`)
                 const data:Product[]|Error = await jsondata.json()
                 return data
                 } catch (e: any) {

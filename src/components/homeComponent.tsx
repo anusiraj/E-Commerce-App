@@ -2,18 +2,21 @@ import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import { toast } from 'react-toastify'
-import { Box, Grid, Card, Typography } from '@mui/material'
+import { Box, Grid, Card, Typography, Button, Paper, styled, TextField, MenuItem } from '@mui/material'
 
-import { createProduct, fetchAllProducts, sortByPrice, deleteProduct} from '../redux/reducer/productReducer'
+import { createProduct, fetchAllProducts, sortByPrice, deleteProduct } from '../redux/reducer/productReducer'
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
 import { setUser, logout } from '../redux/reducer/authReducer'
+import Header from "./HeaderComponent"
+import { addToCart } from '../redux/reducer/cartReducer'
 
 import { Product } from '../types/Product'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { WritableDraft } from 'immer/dist/internal'
 
 
 
-const Home = () => {
+const Home = (props: any) => {
   const navigate = useNavigate()
   const [search, setSearch] = useState("")
   const products = useAppSelector(state => state.productReducer.filter(item => {
@@ -21,10 +24,8 @@ const Home = () => {
   }))
   const categories = useAppSelector(state => state.categoryReducer)
   const dispatch = useAppDispatch()
-  console.log("Product List: ", products)
   const [selectedCategory, setSelectedCategory] = useState(1)
-  console.log("categoryID-"+ selectedCategory)
-
+  const [singleProductId, setSingleProductId] = useState(0)
   const sortPriceAsc = () => {
     dispatch(sortByPrice("asc"))
   }
@@ -41,7 +42,7 @@ const Home = () => {
       images: ["https://placeimg.com/640/480/any"]
     }))
   }
-  const onDelete = (id:number) => {
+  const onDelete = (id: number) => {
     dispatch(deleteProduct(id))
   }
   useEffect(() => {
@@ -49,10 +50,10 @@ const Home = () => {
       selectedCategory
     }
     dispatch(fetchAllProducts(payload))
-  },[selectedCategory])
+  }, [selectedCategory])
   useEffect(() => {
     dispatch(fetchAllCategories())
-  },[])  
+  }, [])
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement> | any) => {
     setSelectedCategory(e.target.value)
   }
@@ -61,35 +62,66 @@ const Home = () => {
     toast.success("User logout successfully")
     navigate('/auth')
   }
+  const handleSelect = (productId: number) => {
+    props.selectId(productId);
+    navigate('/product')
+  }
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+  const handleCart = (product: WritableDraft<Product>) => {
+    dispatch(addToCart(product))
+  }
+
   return (
-    <div>
-        <button onClick ={sortPriceAsc}>Price low to high</button>
-        <button onClick ={sortPriceDesc}>Price high to low</button>
-        <button onClick ={addProduct}>Add Product</button>
-        <label htmlFor='searchProduct'>Search product</label>
-        <input type = "text" name = "search" id = "search" value = {search} onChange = {(e) => setSearch(e.target.value)}/>
-        <label htmlFor='category' className='label'>Filter by Category</label>
-          <select name="category-list" id="category-list" onChange={(e) => handleCategoryChange(e)}>
-              {categories.map(category =>
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-              )}
-          </select>
-          <button type = "submit" onClick={() => handleClick()}>Logout</button>
-        {/* <Grid container spacing = {2}>
-          <Grid item md = {3}> */}
-              {products.map(product => (
-              <Box className='product_list' key = {product.id}>
-                <Box sx = {{ width: "100%"}} component = 'img' src={product.images[0]} id = "product_img"></Box>
-                <Typography variant = "subtitle1" sx = {{ fontWeight: 'bold'}}>Product Category Id: {product.category.id}</Typography>
-                <Typography variant = 'subtitle1' sx = {{ fontWeight: 'bold'}}>{product.title}</Typography>
-                <Typography variant = 'subtitle1' sx = {{ fontWeight: 'bold'}}>{product.price}</Typography>
-                <button onClick={() => onDelete(product.id)}>Delete Product</button></Box>
-                ))}
-          {/* </Grid>
-    </Grid> */}
-    </div>
+    <>
+      <Header />
+      <Box >
+        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={sortPriceAsc}>Price low to high</Button>
+        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={sortPriceDesc}>Price high to low</Button>
+        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={addProduct}>Add Product</Button>
+        <TextField type="text" name="search" id="search" label="Search item" variant="filled"
+          value={search} onChange={(e) => setSearch(e.target.value)} />
+        <TextField
+          id="category-list"
+          select
+          label="Select Category"
+          defaultValue="All"
+          helperText="Please select your category"
+          variant="filled"
+          name="category-list"
+          onChange={(e) => handleCategoryChange(e)}
+        >
+          {categories.map((category) => (
+            <MenuItem key={category.id} value={category.id}>
+              {category.name}
+            </MenuItem>
+          ))}
+        </TextField>
+        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => handleClick()}>Logout</Button>
+      </Box>
+      <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: 'repeat(4, 1fr)' }} >
+        {products.map(product => (
+          <Box>
+            <Item key={product.id} onClick={(e) => handleSelect(product.id)}>
+              <Box sx={{ width: "100%" }} component='img' src={product.images[2]} id="product_img"></Box>
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Product Category Id: {product.category.id}</Typography>
+              <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
+              <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.price}€</Typography>
+              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => onDelete(product.id)}>Delete Product</Button>
+            </Item>
+            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}
+              onClick={() => handleCart(product)}>Add to Cart</Button>
+          </Box>
+
+        ))}
+      </Box>
+    </>
 
   )
 }

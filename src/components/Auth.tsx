@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from '../hooks/reduxHook'
 import { Box, Button, Typography, Grid, Paper, Avatar, TextField } from '@mui/material'
 import { LockOutlined } from '@mui/icons-material'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import { setUser } from '../redux/reducer/authReducer'
 import { useLoginUserMutation, useRegisterUserMutation } from '../services/authApi'
@@ -21,6 +23,7 @@ function Copyright(props: any) {
       </Typography>
     );
   }
+const theme = createTheme();
 
 const initialState = {
     name: "",
@@ -86,7 +89,9 @@ const Auth = () => {
         }
     },[isLoginError, isRegisterError])
     return(
-        <Grid container component="main" sx={{ height: '100vh' }}>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Grid container component="main" sx={{ height: '100vh' }}>
             <Grid
                 item
                 xs={false}
@@ -125,6 +130,7 @@ const Auth = () => {
                         {showRegister && (
                             <TextField
                             margin="normal"
+                            type = "text"
                             required
                             fullWidth
                             id="name"
@@ -137,6 +143,7 @@ const Auth = () => {
                         )}
                         <TextField
                             margin="normal"
+                            type = "email"
                             required
                             fullWidth
                             id="email"
@@ -199,11 +206,13 @@ const Auth = () => {
                                 </>
                             )}
                         </Typography>
+                        <Copyright sx={{ mt: 5 }} />
                     </Box>
-                    <Copyright sx={{ mt: 5 }} />
                 </Box>
             </Grid>
         </Grid>
+        </ThemeProvider>
+
     )
 }
 export default Auth

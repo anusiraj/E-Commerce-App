@@ -7,7 +7,6 @@ const initialState: Category[] = []
 export const fetchAllCategories = createAsyncThunk(
     'fetchAllCategories',
     async(selectedCategory) => {
-        console.log("Kannanganal" + selectedCategory)
         try {
             const jsondata = await fetch("https://api.escuelajs.co/api/v1/categories")
             const data: Category|Error = await jsondata.json()

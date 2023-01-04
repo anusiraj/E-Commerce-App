@@ -7,6 +7,7 @@ export interface Product {
     description: string
     category: Category 
     images: string[]
+    quantity?: number
 }
 export interface CreateProduct {
     title: string
