@@ -16,7 +16,7 @@ function Copyright(props: any) {
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" to={'https://mui.com/'} >
-          KMart
+          Lu-Lu
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
@@ -32,7 +32,7 @@ const initialState = {
     confirmPassword: "",
     avatar: ""
 }
-const Auth = () => {
+const Auth = (props:any) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const[formValue, setFormValue] = useState(initialState)
@@ -41,6 +41,7 @@ const Auth = () => {
     const handleChange = (e:any) => {
         setFormValue({...formValue,[e.target.name]:e.target.value})
     }
+    props.selectUser(formValue);
     const [loginUser, 
         {data: loginData, isSuccess: isLoginSuccess, isError: isLoginError, error: LoginEror}] = useLoginUserMutation()
     const [registerUser, 
@@ -55,7 +56,7 @@ const Auth = () => {
     }
     const handleRegister = async() =>{
         if(password !== confirmPassword) {
-            toast.error("Password don't match")
+            toast.error("Password do not match")
         }
         else {
             const avatar = "https://api.lorem.space/image/face?w=640&h=480"

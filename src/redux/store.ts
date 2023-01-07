@@ -5,6 +5,7 @@ import productReducer from './reducer/productReducer';
 import categoryReducer from './reducer/categoryReducer';
 import authReducer from './reducer/authReducer';
 import cartReducer from './reducer/cartReducer';
+import userReducer from './reducer/userReducer';
 import { authApi } from '../services/authApi';
 import storage from 'redux-persist/lib/storage';
 import {
@@ -29,6 +30,7 @@ export const store = configureStore({
     categoryReducer,
     auth: authReducer,
     cartReducer,
+    userReducer,
     [authApi.reducerPath]: authApi.reducer,
     persistedReducer,
     },

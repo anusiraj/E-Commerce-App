@@ -2,15 +2,18 @@ import { Box, Typography, Paper, styled, Button } from '@mui/material'
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import Header from "./HeaderComponent"
 import CustomizedDialogs from '../pages/review'
 import { addToCart } from '../redux/reducer/cartReducer'
+import { Product } from '../types/Product'
 
 const ProductDetail = (props: any) => {
   const dispatch = useAppDispatch()
   const [product, setProduct] = useState({ id: 0, title: "", images: [''], price: 0, description: "" })
+  const { PRid } = useParams()
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -32,6 +35,7 @@ const ProductDetail = (props: any) => {
 
     fetchData(productId);
   }, [productId]);
+
   const handleOpen = (e: React.ChangeEvent<HTMLSelectElement> | any) => {
     < CustomizedDialogs />
   }

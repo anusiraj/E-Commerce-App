@@ -11,17 +11,18 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { styled } from '@mui/material/styles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { useAppSelector } from '../hooks/reduxHook';
 import { ShoppingCart } from '@mui/icons-material'
 import { useNavigate, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import Profile  from './profileComponent'
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -32,10 +33,10 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   },
 }));
 
-function Header() {
+const Header = () => {
   const navigate = useNavigate()
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -59,6 +60,9 @@ function Header() {
       total += quantity
     })
     return total
+  }
+  const handleProfile = () => {
+    navigate('/profile')
   }
 
   return (
@@ -155,10 +159,10 @@ function Header() {
               {/* <StyledBadge badgeContent= {getTotalQuantity() || 0} color = "error">
                 <AddShoppingCartIcon sx={{ color: 'white'}} />
               </StyledBadge> */}
-              <div className='shopping-cart' onClick={() => navigate('/cart')}>
+              <Box className='shopping-cart' onClick={() => navigate('/cart')}>
                 <ShoppingCart id='cartIcon' />
-                <p>{getTotalQuantity() || 0}</p>
-              </div>
+                <Typography>{getTotalQuantity() || 0}</Typography>
+              </Box>
             </IconButton>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ mr: 1, pb: 2 }}>
@@ -181,11 +185,15 @@ function Header() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {/* {settings.map((setting) => ( */}
+                {/* <MenuItem key={setting} onClick={handleCloseUserMenu}> */}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link to={'/profile'}>Profile</Link><br/>
+                    <Link to={''}>Account</Link>
+                  </Typography>
                 </MenuItem>
-              ))}
+              {/* ))} */}
             </Menu>
           </Box>
         </Toolbar>

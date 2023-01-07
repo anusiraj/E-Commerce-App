@@ -4,7 +4,7 @@ import { RootState } from '../store'
 import { AuthType } from "../../types/Auth";
 
 const initialState: AuthType = {
-    token: null
+    token: null,
 }
 export const authSlice = createSlice ({
     name: "auth",
@@ -23,6 +23,8 @@ export const authSlice = createSlice ({
     }
 })
 export const selectAuth = (state:RootState) => state.auth
-export default authSlice.reducer
+const authReducer = authSlice.reducer;
+
+export default authReducer
 export const {setUser, logout} = authSlice.actions
 

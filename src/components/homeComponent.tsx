@@ -11,7 +11,7 @@ import Header from "./HeaderComponent"
 import { addToCart } from '../redux/reducer/cartReducer'
 
 import { Product } from '../types/Product'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useParams } from 'react-router-dom'
 import { WritableDraft } from 'immer/dist/internal'
 
 
@@ -64,7 +64,7 @@ const Home = (props: any) => {
   }
   const handleSelect = (productId: number) => {
     props.selectId(productId);
-    navigate('/product')
+    navigate(`/product/${productId}`)
   }
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -113,12 +113,12 @@ const Home = (props: any) => {
               <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Product Category Id: {product.category.id}</Typography>
               <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
               <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.price}€</Typography>
-              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => onDelete(product.id)}>Delete Product</Button>
             </Item>
             <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}
               onClick={() => handleCart(product)}>Add to Cart</Button>
+            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}
+              onClick={() => onDelete(product.id)}>Delete Product</Button>
           </Box>
-
         ))}
       </Box>
     </>
