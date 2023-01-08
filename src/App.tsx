@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/" element={<Navigate to='/auth' replace />} />
           <Route path="/auth" element={<Auth selectUser = {userSelectedHandler} />} />
           <Route path="/home" element={<PrivateRoute>
-            <Home selectId={idSelectedHandler} />
+            <Home selectId={idSelectedHandler} userDetail = {userDetailedinfo}  />
           </PrivateRoute>
           } />
           <Route path="/product/:id" element={<ProductDetail detailedPId={productDetailedinfo} />} />

@@ -48,7 +48,7 @@ const ProductDetail = (props: any) => {
       {/* <Box sx={{ display: 'grid', width: "50%", height: "70%", margin: "4rem" }}> */}
       <Box sx={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(2, 1fr)', margin: "4rem" }} >
         <Item key={product.id}>
-          <Box sx={{ width: "100%" }} component='img' src={product.images[1]} id="product_img"></Box>
+          <Box sx={{ width: "100%" }} component='img' src={product.images[0]} id="product_img"></Box>
           <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
           <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() =>handleCart(product)}>
             Add To Cart

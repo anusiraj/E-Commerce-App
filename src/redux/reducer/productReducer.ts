@@ -31,8 +31,20 @@ export const fetchAllProducts = createAsyncThunk(
 export const createProduct = createAsyncThunk(
     "createProduct",
     async (product: CreateProduct) => {
+        console.log("Product Gotte in reducer is",product)
         try {
             const response: AxiosResponse<Product, Product> = await axios.post("https://api.escuelajs.co/api/v1/products/", product)
+            return response.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
+)
+export const deleteProduct = createAsyncThunk(
+    "deleteProduct",
+    async (payload: {id: number}) => {
+        try {
+            const response: AxiosResponse<Product, any> = await axios.delete(`https://api.escuelajs.co/api/v1/products/${payload.id}`)
             return response.data
         } catch (e) {
             console.log(e)
@@ -50,9 +62,6 @@ const productSlice = createSlice({
                 state.sort((a, b) => (b.price > a.price ? 1 : -1));
             }
         },
-        deleteProduct: (state,action:PayloadAction<number>) => {
-            return state.filter(item => item.id !== action.payload)
-        }
     }, /* manage sync process */
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
@@ -81,5 +90,5 @@ const productSlice = createSlice({
     }
 })
 const productReducer = productSlice.reducer
-export const {sortByPrice,deleteProduct} = productSlice.actions
+export const {sortByPrice} = productSlice.actions
 export default productReducer
