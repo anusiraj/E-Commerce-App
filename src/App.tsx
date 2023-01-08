@@ -11,6 +11,7 @@ import PrivateRoute from './components/PrivateRouteComponent'
 import Header from './components/HeaderComponent'
 import Cart from './components/CartComponent'
 import Profile from './components/profileComponent'
+import EditProduct from './pages/editProduct'
 import { useState } from 'react'
 
 import './Style.css';
@@ -18,11 +19,16 @@ import './Style.css';
 const App = () => {
   const [selectedId, setSelectedId] = useState(1);
   const [productDetailedinfo, setProductDetailedInfo] = useState(0);
+  const [productDetail, setProductDetail] = useState(0);
   const [userDetailedinfo, setUserDetailedInfo] = useState('');
 
   const idSelectedHandler = (id: any) => {
     const idd: number = +id;
     setProductDetailedInfo(idd);
+  };
+  const PidSelectedHandler = (id: any) => {
+    const idd: number = +id;
+    setProductDetail(idd);
   };
   const userSelectedHandler = (userValue:any) => {
     setUserDetailedInfo(userValue)
@@ -35,12 +41,15 @@ const App = () => {
           <Route path="/" element={<Navigate to='/auth' replace />} />
           <Route path="/auth" element={<Auth selectUser = {userSelectedHandler} />} />
           <Route path="/home" element={<PrivateRoute>
-            <Home selectId={idSelectedHandler} userDetail = {userDetailedinfo}  />
+            <Home selectPid={PidSelectedHandler} selectId={idSelectedHandler} userDetail = {userDetailedinfo}  />
           </PrivateRoute>
           } />
           <Route path="/product/:id" element={<ProductDetail detailedPId={productDetailedinfo} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile userDetail = {userDetailedinfo}/>} />
+          <Route path="/edit-product" element={
+          <EditProduct pDetail = {productDetail} />} 
+          />
         </Routes>
       </BrowserRouter>
     </div>

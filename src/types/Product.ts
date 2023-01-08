@@ -15,4 +15,5 @@ export interface CreateProduct {
     description: string
     categoryId: number 
     images: string[]
+    id?:number
 }

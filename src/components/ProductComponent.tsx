@@ -40,7 +40,7 @@ const ProductDetail = (props: any) => {
     < CustomizedDialogs />
   }
   const handleCart = (product:any) => {
-    // dispatch(addToCart(product))
+    dispatch(addToCart(product))
   }
   return (
     <>

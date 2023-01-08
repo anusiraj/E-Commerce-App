@@ -40,6 +40,18 @@ export const createProduct = createAsyncThunk(
         }
     }
 )
+export const editProduct = createAsyncThunk(
+    "editProduct",
+    async (payload: CreateProduct) => {
+        console.log("edit Product details", payload)
+        try {
+            const response: AxiosResponse<Product, Product> = await axios.put(`https://api.escuelajs.co/api/v1/products/${payload.id}`, payload)
+            return response.data
+        } catch (e) {
+            console.log(e)
+        }
+    }
+)
 export const deleteProduct = createAsyncThunk(
     "deleteProduct",
     async (payload: {id: number}) => {
@@ -81,6 +93,13 @@ const productSlice = createSlice({
             return state
         })
         build.addCase(createProduct.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.push(action.payload)
+            } else {
+                return state
+            }
+        })
+        build.addCase(editProduct.fulfilled, (state, action) => {
             if (action.payload) {
                 state.push(action.payload)
             } else {

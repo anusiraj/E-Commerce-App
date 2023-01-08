@@ -12,15 +12,27 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Paper } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
-import { useAppSelector } from '../hooks/reduxHook';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHook';
 import { ShoppingCart } from '@mui/icons-material'
 import { useNavigate, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import Profile  from './profileComponent'
+import { toast } from 'react-toastify'
+
+import { setUser, logout } from '../redux/reducer/authReducer'
+import Profile from './profileComponent'
+import { fetchAllUser } from '../redux/reducer/userReducer'
 
 
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 const pages = ['Products', 'Pricing', 'Blog'];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -30,14 +42,21 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     top: 13,
     border: `2px solid ${theme.palette.background.paper}`,
     padding: '0 4px',
+    background: "red"
   },
 }));
 
-const Header = () => {
+const Header = (props: any) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
+  const users = useAppSelector(state => state.userReducer.filter(item => {
+    return item.email === props.user
+  }))
+  useEffect(() => {
+    dispatch(fetchAllUser())
+  }, [])
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -64,6 +83,11 @@ const Header = () => {
   const handleProfile = () => {
     navigate('/profile')
   }
+  const handleClick = () => {
+    dispatch(logout())
+    toast.success("User logout successfully")
+    navigate('/auth')
+  }
 
   return (
     <AppBar position="static">
@@ -86,7 +110,6 @@ const Header = () => {
           >
             Lu-Lu
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -123,7 +146,7 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <AddShoppingCartIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AddShoppingCartIcon sx={{ display: { xs: 'flex', md: 'none'}, mr: 1}} />
           <Typography
             variant="h5"
             noWrap
@@ -153,20 +176,20 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton aria-label="cart">
-              {/* <StyledBadge badgeContent= {getTotalQuantity() || 0} color = "error">
-                <AddShoppingCartIcon sx={{ color: 'white'}} />
-              </StyledBadge> */}
-              <Box className='shopping-cart' onClick={() => navigate('/cart')}>
-                <ShoppingCart id='cartIcon' />
-                <Typography>{getTotalQuantity() || 0}</Typography>
-              </Box>
+            <IconButton aria-label="cart" onClick={() => navigate('/cart')}>
+              <StyledBadge badgeContent = {getTotalQuantity() || 0} color="secondary">
+                <AddShoppingCartIcon />
+              </StyledBadge>
             </IconButton>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ mr: 1, pb: 2 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {users.map(user => (
+                  <Typography sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', color: 'white' }}>
+                    <Avatar alt="Remy Sharp" src={user.avatar} />
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>{user.name}</Typography>
+                  </Typography>
+                ))}
               </IconButton>
             </Tooltip>
             <Menu
@@ -185,15 +208,12 @@ const Header = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {/* {settings.map((setting) => ( */}
-                {/* <MenuItem key={setting} onClick={handleCloseUserMenu}> */}
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">
-                    <Link to={'/profile'}>Profile</Link><br/>
-                    <Link to={''}>Account</Link>
-                  </Typography>
-                </MenuItem>
-              {/* ))} */}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">
+                  <Button variant="text" sx={{ m: 1 }}><Link to={'/profile'}>Profile</Link></Button><br />
+                  <Button type="submit" variant="text" sx={{ m: 1 }} onClick={() => handleClick()}>Logout</Button>
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

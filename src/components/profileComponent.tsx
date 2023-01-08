@@ -7,7 +7,8 @@ import { Box, Typography, Button, Paper, styled, Modal } from '@mui/material'
 
 import { User } from '../types/Auth'
 import ProfileForm from '../pages/editProfileForm'
-import  DeleteForm from '../pages/deleteUserAccount'
+import DeleteForm from '../pages/deleteUserAccount'
+import Header from "./HeaderComponent"
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -62,6 +63,7 @@ const Profile = (props: any) => {
 
     return (
         <>
+            <Header />
             <Box sx={{ color: 'black' }} >
                 {users.map(user => (
                     <Item>
@@ -86,7 +88,7 @@ const Profile = (props: any) => {
                                 aria-describedby="modal-modal-description"
                             >
                                 <Box sx={style}>
-                                    <ProfileForm userId = {user.id} />
+                                    <ProfileForm userId={user.id} />
                                 </Box>
                             </Modal>
                             <Button onClick={handleDeleteOpen}>Delete Account</Button>
@@ -97,7 +99,7 @@ const Profile = (props: any) => {
                                 aria-describedby="modal-modal-description"
                             >
                                 <Box sx={style}>
-                                    <DeleteForm userId = {user.id} />
+                                    <DeleteForm userId={user.id} />
                                 </Box>
                             </Modal>
                         </Item>
