@@ -14,27 +14,17 @@ import MenuItem from '@mui/material/MenuItem';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Paper } from '@mui/material'
 import { styled } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook';
-import { ShoppingCart } from '@mui/icons-material'
 import { useNavigate, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { setUser, logout } from '../redux/reducer/authReducer'
-import Profile from './profileComponent'
+import { logout } from '../redux/reducer/authReducer'
 import { fetchAllUser } from '../redux/reducer/userReducer'
 
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 const pages = ['Products', 'Pricing', 'Blog'];
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -91,6 +81,7 @@ const Header = (props: any) => {
 
   return (
     <AppBar position="static">
+      <CssBaseline />
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -146,12 +137,12 @@ const Header = (props: any) => {
               ))}
             </Menu>
           </Box>
-          <AddShoppingCartIcon sx={{ display: { xs: 'flex', md: 'none'}, mr: 1}} />
+          <AddShoppingCartIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/home"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -166,19 +157,20 @@ const Header = (props: any) => {
             Lu-Lu
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            {/* {pages.map((page) => ( */}
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Products</Link>
+              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Pricing</Link>
+              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Blog</Link>
+            </Button>
+            {/* ))} */}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton aria-label="cart" onClick={() => navigate('/cart')}>
-              <StyledBadge badgeContent = {getTotalQuantity() || 0} color="secondary">
+              <StyledBadge badgeContent={getTotalQuantity() || 0} color="secondary">
                 <AddShoppingCartIcon />
               </StyledBadge>
             </IconButton>
@@ -210,7 +202,8 @@ const Header = (props: any) => {
             >
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">
-                  <Button variant="text" sx={{ m: 1 }}><Link to={'/profile'}>Profile</Link></Button><br />
+                  <Button variant="text" sx={{ m: 1 }}>
+                    <Link style={{ textDecoration: "none", color: "#2979c4", fontWeight: "normal" }} to={'/profile'}>Profile</Link></Button><br />
                   <Button type="submit" variant="text" sx={{ m: 1 }} onClick={() => handleClick()}>Logout</Button>
                 </Typography>
               </MenuItem>

@@ -2,8 +2,8 @@ import { incrementQuantity, decrementQuantity, removeItem } from '../redux/reduc
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import { Box, Grid, Card, Typography, Button, Paper, styled, TextField, MenuItem } from '@mui/material'
 
-const CartItem = (props: { id: number, title: string, image: any, price: number, quantity: number }) => {
-  const { id, title, price, quantity } = props;
+const CartItem = (props: { id: number, title: string, image: string, price: number, quantity: number }) => {
+  const { id, title, price, image, quantity } = props;
   const dispatch = useAppDispatch()
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -12,22 +12,25 @@ const CartItem = (props: { id: number, title: string, image: any, price: number,
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
+  console.log("The image is ", image)
   return (
     <Box>
       <Item>
         <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: 'repeat(4, 1fr)' }}>
-          {/* <Box sx={{ width: "100%" }} component='img' src={image} id="product_img"></Box> */}
-          <Typography className="cartItem__title">{title}</Typography>
-          <Typography className="cartItem__price">
-            <small>$</small>
+          <Box>
+            <Typography className="cartItem__title">{title}</Typography>
+            <Box sx={{ width: "100%" }} component='img' src={image} id="product_img"></Box>
+          </Box>
+          <Typography sx={{ mt: 5 }} className="cartItem__price">
             <strong>{price}</strong>
+            <strong>€</strong>
           </Typography>
           <Box>
-            <Button onClick={() => dispatch(decrementQuantity(id))}>-</Button>
-            <Typography>{quantity}</Typography>
             <Button onClick={() => dispatch(incrementQuantity(id))}>+</Button>
+            <Typography>{quantity}</Typography>
+            <Button onClick={() => dispatch(decrementQuantity(id))}>-</Button>
           </Box>
-          <Button
+          <Button sx = {{ height : "40%", mt: 3 }}
             className='cartItem__removeButton'
             onClick={() => dispatch(removeItem(id))}>
             Remove

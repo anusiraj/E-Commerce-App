@@ -38,7 +38,7 @@ export const Total = () => {
   )
 }
 
-function Cart() {
+const Cart = () => {
   const cart = useAppSelector((state) => state.cartReducer.cartItems)
   const dispatch = useAppDispatch()
   return (

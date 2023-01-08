@@ -6,8 +6,10 @@ import { useNavigate, Link, useParams } from 'react-router-dom'
 
 import {
   Box, Grid, Card, Typography, Button, Paper, styled,
-  TextField, MenuItem, Modal, FormControl, Select, InputLabel
+  TextField, MenuItem, Modal, FormControl, Select, InputLabel,
 } from '@mui/material'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 
 import { fetchAllProducts, sortByPrice, deleteProduct } from '../redux/reducer/productReducer'
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
@@ -110,84 +112,81 @@ const Home = (props: any) => {
   return (
     <>
       <Header user={props.userDetail.email} />
-      <Box sx={{ m: 3, display: 'flex', gap: 3, flexTemplateColumns: 'repeat(6, 1fr)', justifyContent: 'flex-end' }} >
-        <Button type="submit" sx={{}} onClick={sortPriceAsc}>Price low to high</Button>
-        <Button type="submit" sx={{}} onClick={sortPriceDesc}>Price high to low</Button>
-        <TextField
-          type="text" name="search" id="search" label="Search item" variant="outlined" size="small"
-          value={search} onChange={(e) => setSearch(e.target.value)} />
-        {/* <TextField
-          id="category-list"
-          select
-          label="Select Category"
-          defaultValue="All"
-          helperText="Please select your category"
-          variant="outlined"
-          size = "small"
-          name="category-list"
-          onChange={(e) => handleCategoryChange(e)}
-        > */}
-        <Box sx={{ minWidth: 200 }}>
-          <FormControl fullWidth>
-            <InputLabel id="category-list">Select your Category</InputLabel>
-            <Select
-              id="demo-simple-select"
-              label="Category"
-              size="small"
-              name="category-list"
-              onChange={(e) => handleCategoryChange(e)}
-            >
-              {categories.map((category) => (
-                <MenuItem key={category.id} value={category.id}>
-                  {category.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+      <Box sx = {{ m: 3 }}>
+        <Box sx={{ m: 3, display: 'flex', gap: 3, flexTemplateColumns: 'repeat(6, 1fr)', justifyContent: 'flex-end' }} >
+          <Button type="submit" sx={{}} onClick={sortPriceAsc}>Price low to high</Button>
+          <Button type="submit" sx={{}} onClick={sortPriceDesc}>Price high to low</Button>
+          <TextField
+            type="text" name="search" id="search" label="Search item" variant="outlined" size="small"
+            value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Box sx={{ minWidth: 200 }}>
+            <FormControl fullWidth>
+              <InputLabel id="category-list">Select your Category</InputLabel>
+              <Select
+                id="demo-simple-select"
+                label="Category"
+                size="small"
+                name="category-list"
+                onChange={(e) => handleCategoryChange(e)}
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+          {/* </TextField> */}
+          {isAdmin ? (
+            <>
+              <Button type="submit" variant="contained" onClick={addModalOpen}>Add Product</Button>
+              <Button type="submit" variant="contained"   >Add Category</Button></>
+          ) : ('')}
+          <Modal
+            open={openAddModal}
+            onClose={addModalClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <AddProduct />
+            </Box>
+          </Modal>
         </Box>
-        {/* </TextField> */}
-        {isAdmin ? (
-          <Button type="submit" variant="contained" onClick={addModalOpen}>Add Product</Button>
-        ) : ('')}
-        <Modal
-          open={openAddModal}
-          onClose={addModalClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <AddProduct />
-          </Box>
-        </Modal>
-      </Box>
-      <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: 'repeat(4, 1fr)' }} >
-        {products.map(product => (
-          <Box>
-            <Item key={product.id} onClick={(e) => handleSelect(product.id)}>
-              <Box sx={{ width: "100%" }} component='img' src={product.images[0]} id="product_img"></Box>
-              <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
-              <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.price}€</Typography>
-            </Item>
-            {!isAdmin ? (<Button type="submit" variant="contained" sx={{ m: 3 }}
-              onClick={() => handleCart(product)}>Add to Cart</Button>
-            ) :
-              (<Box>
-                <Button sx={{ m: 3 }} type="submit" variant="contained"
-                  onClick={(e) => handleEdit(product.id)}>Edit</Button>
-                <Button sx={{ m: 3 }} type="submit" variant="contained"
-                  onClick={() => onDelete(product.id)}>Delete</Button>
-              </Box>
-              )}
-          </Box>
-        ))}
-      </Box>
-      {/* <Pagination
+        <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: 'repeat(4, 1fr)' }} >
+          {products.map(product => (
+            <Box>
+              <Item key={product.id} onClick={(e) => handleSelect(product.id)}>
+                <Box sx={{ width: "100%" }} component='img' src={product.images[0]} id="product_img"></Box>
+                <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
+                <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.price}€</Typography>
+              </Item>
+              {!isAdmin ? (
+                <>
+                  <Button type="submit" variant="contained" sx={{ mt: 1 }}
+                    onClick={() => handleCart(product)}>Add to Cart</Button>
+                  <FavoriteBorderIcon color="primary" sx={{ ml: 15, mt: 1 }} />
+                </>
+              ) :
+                (<Box>
+                  <Button sx={{ m: 3 }} type="submit" variant="contained"
+                    onClick={(e) => handleEdit(product.id)}>Edit</Button>
+                  <Button sx={{ m: 3 }} type="submit" variant="contained"
+                    onClick={() => onDelete(product.id)}>Delete</Button>
+                </Box>
+                )}
+            </Box>
+          ))}
+        </Box>
+        {/* <Pagination
         className="pagination-bar"
         currentPage={currentPage}
         totalCount={products.length}
         pageSize={PageSize}
         onPageChange={(page: React.SetStateAction<number>) => setCurrentPage(page)}
       /> */}
+      </Box>
     </>
 
   )

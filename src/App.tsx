@@ -30,7 +30,7 @@ const App = () => {
     const idd: number = +id;
     setProductDetail(idd);
   };
-  const userSelectedHandler = (userValue:any) => {
+  const userSelectedHandler = (userValue: any) => {
     setUserDetailedInfo(userValue)
   }
   return (
@@ -39,16 +39,27 @@ const App = () => {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Navigate to='/auth' replace />} />
-          <Route path="/auth" element={<Auth selectUser = {userSelectedHandler} />} />
+          <Route path="/auth" element={<Auth selectUser={userSelectedHandler} />} />
           <Route path="/home" element={<PrivateRoute>
-            <Home selectPid={PidSelectedHandler} selectId={idSelectedHandler} userDetail = {userDetailedinfo}  />
+            <Home selectPid={PidSelectedHandler} selectId={idSelectedHandler} userDetail={userDetailedinfo} />
           </PrivateRoute>
           } />
-          <Route path="/product/:id" element={<ProductDetail detailedPId={productDetailedinfo} />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile userDetail = {userDetailedinfo}/>} />
-          <Route path="/edit-product" element={
-          <EditProduct pDetail = {productDetail} />} 
+          <Route path="/product/:id" element={<PrivateRoute>
+            <ProductDetail detailedPId={productDetailedinfo} />
+          </PrivateRoute>
+          } />
+          <Route path="/cart" element={<PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+          } />
+          <Route path="/profile" element={<PrivateRoute>
+            <Profile userDetail={userDetailedinfo} />
+          </PrivateRoute>
+          } />
+          <Route path="/edit-product" element={<PrivateRoute>
+            <EditProduct pDetail={productDetail} />
+          </PrivateRoute>
+            }
           />
         </Routes>
       </BrowserRouter>
