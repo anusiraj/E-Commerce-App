@@ -8,7 +8,9 @@ import Home from './components/homeComponent'
 import Auth from './components/Auth'
 import ProductDetail from './components/ProductComponent'
 import PrivateRoute from './components/PrivateRouteComponent'
+import LoadingtoRedirect from './components/LoadingtoRedirectComponent'
 import Header from './components/HeaderComponent'
+import EntryPage from './components/EntryPageComponent'
 import Cart from './components/CartComponent'
 import Profile from './components/profileComponent'
 import EditProduct from './pages/editProduct'
@@ -38,28 +40,28 @@ const App = () => {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<Navigate to='/auth' replace />} />
+          <Route path="/" element={<EntryPage idSelected={idSelectedHandler} />} />
+
+          {/* <Route path="/" element={<Navigate to='/auth' replace />} /> */}
           <Route path="/auth" element={<Auth selectUser={userSelectedHandler} />} />
-          <Route path="/home" element={<PrivateRoute>
+          <Route path="/home" element={
             <Home selectPid={PidSelectedHandler} selectId={idSelectedHandler} userDetail={userDetailedinfo} />
-          </PrivateRoute>
           } />
-          <Route path="/product/:id" element={<PrivateRoute>
+          <Route path="/product/:id" element={
             <ProductDetail detailedPId={productDetailedinfo} />
-          </PrivateRoute>
           } />
-          <Route path="/cart" element={<PrivateRoute>
+          <Route path="/cart" element={
             <Cart />
-          </PrivateRoute>
           } />
-          <Route path="/profile" element={<PrivateRoute>
+          <Route path="/private" element={
+            <LoadingtoRedirect />
+          } />
+          <Route path="/profile" element={
             <Profile userDetail={userDetailedinfo} />
-          </PrivateRoute>
           } />
-          <Route path="/edit-product" element={<PrivateRoute>
+          <Route path="/edit-product" element={
             <EditProduct pDetail={productDetail} />
-          </PrivateRoute>
-            }
+          }
           />
         </Routes>
       </BrowserRouter>

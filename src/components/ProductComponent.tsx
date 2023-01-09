@@ -2,18 +2,22 @@ import { Box, Typography, Paper, styled, Button } from '@mui/material'
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import Header from "./HeaderComponent"
 import CustomizedDialogs from '../pages/review'
 import { addToCart } from '../redux/reducer/cartReducer'
+import { selectAuth } from '../redux/reducer/authReducer'
+
 import { Product } from '../types/Product'
 
 const ProductDetail = (props: any) => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [product, setProduct] = useState({ id: 0, title: "", images: [''], price: 0, description: "" })
   const { PRid } = useParams()
+  const { token } = useAppSelector(selectAuth)
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -40,7 +44,12 @@ const ProductDetail = (props: any) => {
     < CustomizedDialogs />
   }
   const handleCart = (product:any) => {
-    dispatch(addToCart(product))
+    if(token) {
+      dispatch(addToCart(product))
+    }
+    else {
+      navigate('/private')
+    }
   }
   return (
     <>

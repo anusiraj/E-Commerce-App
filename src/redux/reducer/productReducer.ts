@@ -19,7 +19,7 @@ export const fetchAllProducts = createAsyncThunk(
         }
         else{
             try {
-                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products?offset=3&limit=500`)
+                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products`)
                 const data:Product[]|Error = await jsondata.json()
                 return data
                 } catch (e: any) {
@@ -27,6 +27,18 @@ export const fetchAllProducts = createAsyncThunk(
                 }
         }
     }
+)
+export const fetchFeaturedProducts = createAsyncThunk(
+    "fetchFeaturedProducts",
+    async () => {
+            try {
+                const jsondata = await fetch(`https://api.escuelajs.co/api/v1/products?offset=0&limit=12`)
+                const data:Product[]|Error = await jsondata.json()
+                return data
+                } catch (e: any) {
+                    console.log(e)
+                }
+        }
 )
 export const createProduct = createAsyncThunk(
     "createProduct",
@@ -89,6 +101,22 @@ const productSlice = createSlice({
             return state
         })
         build.addCase(fetchAllProducts.pending, (state, action) => {
+            console.log("data is loading ...")
+            return state
+        })
+        build.addCase(fetchFeaturedProducts.fulfilled, (state, action) => {
+            if (action.payload && "message" in action.payload) {
+                return state
+            } else if (!action.payload) {
+                return state
+            }
+            return action.payload
+        })
+        build.addCase(fetchFeaturedProducts.rejected, (state, action) => {
+            console.log("error in fetching data")
+            return state
+        })
+        build.addCase(fetchFeaturedProducts.pending, (state, action) => {
             console.log("data is loading ...")
             return state
         })

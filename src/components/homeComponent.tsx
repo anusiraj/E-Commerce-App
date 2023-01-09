@@ -15,6 +15,7 @@ import { fetchAllProducts, sortByPrice, deleteProduct } from '../redux/reducer/p
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
 import { setUser, logout } from '../redux/reducer/authReducer'
 import { addToCart } from '../redux/reducer/cartReducer'
+import { selectAuth } from '../redux/reducer/authReducer'
 
 import Header from "./HeaderComponent"
 import AddProduct from '../pages/createProduct'
@@ -29,6 +30,7 @@ import { WritableDraft } from 'immer/dist/internal'
 const Home = (props: any) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { token } = useAppSelector(selectAuth)
   const categories = useAppSelector(state => state.categoryReducer)
   // const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("")
@@ -91,7 +93,12 @@ const Home = (props: any) => {
     color: theme.palette.text.secondary,
   }))
   const handleCart = (product: WritableDraft<Product>) => {
-    dispatch(addToCart(product))
+    if(token) {
+      dispatch(addToCart(product))
+    }
+    else {
+      navigate('/private')
+    }
   }
   const style = {
     position: 'absolute' as 'absolute',

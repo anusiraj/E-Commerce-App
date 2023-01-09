@@ -23,6 +23,7 @@ import { toast } from 'react-toastify'
 
 import { logout } from '../redux/reducer/authReducer'
 import { fetchAllUser } from '../redux/reducer/userReducer'
+import { selectAuth } from '../redux/reducer/authReducer'
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -39,6 +40,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 const Header = (props: any) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { token } = useAppSelector(selectAuth)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const users = useAppSelector(state => state.userReducer.filter(item => {
@@ -162,6 +164,7 @@ const Header = (props: any) => {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
+              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/'}>Home</Link>
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Products</Link>
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Pricing</Link>
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Blog</Link>
@@ -174,40 +177,47 @@ const Header = (props: any) => {
                 <AddShoppingCartIcon />
               </StyledBadge>
             </IconButton>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ mr: 1, pb: 2 }}>
-                {users.map(user => (
-                  <Typography sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', color: 'white' }}>
-                    <Avatar alt="Remy Sharp" src={user.avatar} />
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>{user.name}</Typography>
-                  </Typography>
-                ))}
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">
-                  <Button variant="text" sx={{ m: 1 }}>
-                    <Link style={{ textDecoration: "none", color: "#2979c4", fontWeight: "normal" }} to={'/profile'}>Profile</Link></Button><br />
-                  <Button type="submit" variant="text" sx={{ m: 1 }} onClick={() => handleClick()}>Logout</Button>
-                </Typography>
-              </MenuItem>
-            </Menu>
+            {!token ? (
+              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/auth'}>Login</Link>
+            ) : (
+              <>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ mr: 1, pb: 2 }}>
+                    {users.map(user => (
+                      <Typography sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', color: 'white' }}>
+                        <Avatar alt="Remy Sharp" src={user.avatar} />
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>{user.name}</Typography>
+                      </Typography>
+                    ))}
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Button variant="text" sx={{ m: 1 }}>
+                        <Link style={{ textDecoration: "none", color: "#2979c4", fontWeight: "normal" }} to={'/profile'}>Profile</Link></Button><br />
+                      <Button type="submit" variant="text" sx={{ m: 1 }} onClick={() => handleClick()}>Logout</Button>
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
+
           </Box>
         </Toolbar>
       </Container>
