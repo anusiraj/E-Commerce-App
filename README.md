@@ -1,51 +1,176 @@
-# Front-end Project
 
-![React](https://img.shields.io/badge/React-v.18-blue)
-![Redux toolkit](https://img.shields.io/badge/Redux-v.1.9-purple)
-![TypeScript](https://img.shields.io/badge/TypeScript-v.4.9-green)
-![SASS](https://img.shields.io/badge/SASS-v.4.9-hotpink)
+# Lu-Lu (E-commerce website)
 
-This project requires implementation of TypeScript and SASS.
+Lu-Lu is an e-commerce website made with React-Redux,Typescript, Material UI and SASS
 
-## Requirement
+# Deploy link
 
-1. Use the API endpoint [https://fakeapi.platzi.com/](https://fakeapi.platzi.com/) to create an e-commerce website. Read the documentation and learn how to use the different endpoints.
-2. Create at lease 4 pages (can be more if you want): Home page, product page,
-profile page (only available if user logins), and cart page (cart could be a page or a modal)
-3. Create Redux store for following features:
-    - product reducer: get all products, find a single products, sort products by
-    categories, sort products by price. Create, update and delete a product (enable update & delete features only for admin of the webapp. For example, you can check if user is your admin account before let them delete product)
-    - user reducer: Register and Login
-    - cart reducer: add product to cart, remove products, update products's quantity in cart
-4. When adding routers to your application, programatically set certain routes to be private. For example, route to user profile page should not be accessible if user has not logged in.
-5. Deploy the application and rewrite README file.
+Live link: https://fs13-frontend-project-1lpu-71ay3mr02-anusiraj.vercel.app/
 
-## Bonus
+# Requirements
 
-1. Use context API to switch theme
-2. Implement unit testing for the reducers
+1. API endpoint for fetching datas - [https://fakeapi.platzi.com/](https://fakeapi.platzi.com/)
+2. Pages for the website 
+   - Home pages
+   - Products page
+   - Single product page
+   - Profile page
+   - Cart page
+3. Modals
+   - For add product
+   - For Edit product
+   - For edit Profile
+   - For delete Profile
 
-## Instruction to start the project
+# Technologies 
 
-In the project directory, you can run:
+- React
+- Redux
+- Typescript
+- Material UI
+- SASS
 
-### `npm install`
+# Features
 
-Install all the dependencies
+## For User
+ 
+- Home page with featured products and their details when clicking.
+- Entire Products page
+- Entire details of choosen products
+- Can sort products by price, search by prducts name, search products by category
+- User needs to Login or Register account to add items to cart.
+- Profile page
+- Modify and Delete their account from profile page.
+- Redux store is persisted using Redux Pesist, reload do not affects login and cart items.
 
-### `npm start`
+## For Admin
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Only admin can Add, Modify and Delete product.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Screenshots
 
-### `npm test`
+Home Pages before Login
 
-Launches the test runner in the interactive watch mode
+![App Screenshot](https://i.ibb.co/Tq4rSst/Home1.png)
 
-### `npm run build`
+![App Screenshot](https://i.ibb.co/fxNcsXw/Home2.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Product pages before and after Login
+
+Before Login
+
+![App Screenshot](https://i.ibb.co/LNKN5Xb/Product1.png)
+
+![App Screenshot](https://i.ibb.co/9twYM8c/Product2.png)
+
+After Login
+
+![App Screenshot](https://i.ibb.co/GJd4dBz/Product-Login.png)
+
+Single Product Page
+
+![App Screenshot](https://i.ibb.co/Xb9sqKr/Single-Pro.png)
+
+Login Page
+
+![App Screenshot](https://i.ibb.co/PQ0gkHM/Login.png)
+
+Cart Page
+
+![App Screenshot](https://i.ibb.co/J3T7YMy/Cart.png)
+
+Profile page
+
+![App Screenshot](https://i.ibb.co/4VcPYdT/UProfile.png)
+
+Admin Page
+
+![App Screenshot](https://i.ibb.co/GCDZTkc/Admin-Page.png)
+
+## Future features
+
+- Wish List for users
+- Reviewing products
+- Facke Chekout and Place orders
+- Animation on Product card and buttons
+
+# Project Structure
+   
+├── public
+│   ├── assets
+│   │   ├── hero1.jpg
+│   │   ├── hero2.jpg
+│   │   └── hero3.jpg
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+├── src
+│   ├── App.tsx
+│   ├── Style.css
+│   ├── components
+│   │   ├── Auth.tsx
+│   │   ├── CartComponent.tsx
+│   │   ├── EntryPageComponent.tsx
+│   │   ├── FooterComponent.tsx
+│   │   ├── HeaderComponent.tsx
+│   │   ├── LoadingtoRedirectComponent.tsx
+│   │   ├── PrivateRouteComponent.tsx
+│   │   ├── ProductComponent.tsx
+│   │   ├── cartPage.tsx
+│   │   ├── homeComponent.tsx
+│   │   ├── pagination.tsx
+│   │   └── profileComponent.tsx
+│   ├── hooks
+│   │   ├── customHooks
+│   │   └── reduxHook.ts
+│   ├── index.tsx
+│   ├── pages
+│   │   ├── createProduct.tsx
+│   │   ├── deleteUserAccount.tsx
+│   │   ├── editProduct.tsx
+│   │   ├── editProfileForm.tsx
+│   │   └── review.tsx
+│   ├── react-app-env.d.ts
+│   ├── redux
+│   │   ├── reducer
+│   │   └── store.ts
+│   ├── reportWebVitals.ts
+│   ├── services
+│   │   └── authApi.ts
+│   ├── setupTests.ts
+│   ├── styles
+│   │   ├── section
+│   │   ├── shared
+│   │   └── style.scss
+│   ├── test
+│   │   ├── reducers
+│   │   └── shared
+│   └── types
+│       ├── Auth.ts
+│       ├── Cart.ts
+│       ├── Category.ts
+│       └── Product.ts
+├── tsconfig.json
+├── yarn-error.log
+└── yarn.lock
+
+#Setup and running instruction
+
+Go to the project folder where you want to create application.
+
+1. npm install
+     or
+   yarn install
+2. npx create-react-app <project-name> --template redux-typescript
+3. npm install @mui/material
+      or yarn add @mui/material
+4. npm i sass or yarn add sass
+5. npm start or yarn start
+
+# Getting Started
+
+Clone the repository from github: git clone
+
