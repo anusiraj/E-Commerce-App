@@ -21,7 +21,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-const Profile = (props: any) => {
+const Profile = (props: User) => {
     const dispatch = useAppDispatch()
     const email = JSON.stringify(props.userDetail.password)
     const users = useAppSelector(state => state.userReducer.filter(item => {

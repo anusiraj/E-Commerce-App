@@ -24,6 +24,7 @@ import { toast } from 'react-toastify'
 import { logout } from '../redux/reducer/authReducer'
 import { fetchAllUser } from '../redux/reducer/userReducer'
 import { selectAuth } from '../redux/reducer/authReducer'
+import { LocalActivityOutlined } from '@mui/icons-material';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -63,7 +64,8 @@ const Header = (props: any) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const cart = useAppSelector(state => state.cartReducer.cartItems)
+  const cart = useAppSelector(state => state.persistedReducer.cart.cartItems)
+
   const getTotalQuantity = () => {
     let total = 0
     cart.forEach((item: { quantity: number, }) => {
@@ -80,6 +82,7 @@ const Header = (props: any) => {
     toast.success("User logout successfully")
     navigate('/auth')
   }
+
 
   return (
     <AppBar position="static">
@@ -166,13 +169,12 @@ const Header = (props: any) => {
             >
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/'}>Home</Link>
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Products</Link>
-              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Pricing</Link>
-              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Blog</Link>
+              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>About</Link>
             </Button>
             {/* ))} */}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton aria-label="cart" onClick={() => navigate('/cart')}>
+              <IconButton aria-label="cart" onClick={() => navigate('/cart')}>
               <StyledBadge badgeContent={getTotalQuantity() || 0} color="secondary">
                 <AddShoppingCartIcon />
               </StyledBadge>

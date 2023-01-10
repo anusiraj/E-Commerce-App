@@ -23,16 +23,17 @@ import EditProduct from '../pages/editProduct'
 import Pagination from './pagination'
 
 import { Product } from '../types/Product'
+import { AuthType } from '../types/Auth'
 import { WritableDraft } from 'immer/dist/internal'
 
-// let PageSize = 10;
+let PageSize = 12;
 
 const Home = (props: any) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { token } = useAppSelector(selectAuth)
   const categories = useAppSelector(state => state.categoryReducer)
-  // const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("")
   const products = useAppSelector(state => state.productReducer.filter(item => {
     return item.title.toLowerCase().indexOf(search.toLowerCase()) > -1
@@ -41,11 +42,12 @@ const Home = (props: any) => {
   const [singleProductId, setSingleProductId] = useState(0)
   const [isAdmin, setAdmin] = useState(false)
 
-  // const currentTableData = useMemo(() => {
-  //   const firstPageIndex = (currentPage - 1) * PageSize;
-  //   const lastPageIndex = firstPageIndex + PageSize;
-  //   return products.slice(firstPageIndex, lastPageIndex);
-  // }, [currentPage]);
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return products.slice(firstPageIndex, lastPageIndex);
+  }, [products,selectedCategory]);
+
 
   const sortPriceAsc = () => {
     dispatch(sortByPrice("asc"))
@@ -93,7 +95,7 @@ const Home = (props: any) => {
     color: theme.palette.text.secondary,
   }))
   const handleCart = (product: WritableDraft<Product>) => {
-    if(token) {
+    if (token) {
       dispatch(addToCart(product))
     }
     else {
@@ -119,7 +121,7 @@ const Home = (props: any) => {
   return (
     <>
       <Header user={props.userDetail.email} />
-      <Box sx = {{ m: 3 }}>
+      <Box sx={{ m: 3 }}>
         <Box sx={{ m: 3, display: 'flex', gap: 3, flexTemplateColumns: 'repeat(6, 1fr)', justifyContent: 'flex-end' }} >
           <Button type="submit" sx={{}} onClick={sortPriceAsc}>Price low to high</Button>
           <Button type="submit" sx={{}} onClick={sortPriceDesc}>Price high to low</Button>
@@ -162,7 +164,7 @@ const Home = (props: any) => {
           </Modal>
         </Box>
         <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: 'repeat(4, 1fr)' }} >
-          {products.map(product => (
+          {currentTableData.map(product => (
             <Box>
               <Item key={product.id} onClick={(e) => handleSelect(product.id)}>
                 <Box sx={{ width: "100%" }} component='img' src={product.images[0]} id="product_img"></Box>
@@ -186,13 +188,13 @@ const Home = (props: any) => {
             </Box>
           ))}
         </Box>
-        {/* <Pagination
+        <Pagination
         className="pagination-bar"
         currentPage={currentPage}
         totalCount={products.length}
         pageSize={PageSize}
         onPageChange={(page: React.SetStateAction<number>) => setCurrentPage(page)}
-      /> */}
+      />
       </Box>
     </>
 

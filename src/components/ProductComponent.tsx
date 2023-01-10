@@ -10,7 +10,7 @@ import CustomizedDialogs from '../pages/review'
 import { addToCart } from '../redux/reducer/cartReducer'
 import { selectAuth } from '../redux/reducer/authReducer'
 
-import { Product } from '../types/Product'
+import { Product, CreateProduct } from '../types/Product'
 
 const ProductDetail = (props: any) => {
   const dispatch = useAppDispatch()

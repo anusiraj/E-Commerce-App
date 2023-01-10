@@ -31,11 +31,11 @@ const categorySlice = createSlice({
             }
             return action.payload
         })
-        build.addCase(fetchAllCategories.rejected, (state, action) => {
+        build.addCase(fetchAllCategories.rejected, (state) => {
             console.log("error in fetching data")
             return state
         })
-        build.addCase(fetchAllCategories.pending, (state, action) => {
+        build.addCase(fetchAllCategories.pending, (state) => {
             console.log("data is loading ...")
             return state
         })

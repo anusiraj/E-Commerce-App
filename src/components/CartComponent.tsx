@@ -5,6 +5,8 @@ import { Box, Grid, Card, Typography, Button, Paper, styled, TextField, MenuItem
 import CartItem from './cartPage'
 import Header from "./HeaderComponent"
 
+import { Product } from '../types/Product'
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export const Total = () => {
-  const cart = useAppSelector((state) => state.cartReducer.cartItems)
+  const cart = useAppSelector((state) => state.persistedReducer.cart.cartItems)
   const getTotal = () => {
     let totalQuantity = 0
     let totalPrice = 0
@@ -39,7 +41,7 @@ export const Total = () => {
 }
 
 const Cart = () => {
-  const cart = useAppSelector((state) => state.cartReducer.cartItems)
+  const cart = useAppSelector((state) => state.persistedReducer.cart.cartItems)
   const dispatch = useAppDispatch()
   return (
     <>
@@ -49,9 +51,7 @@ const Cart = () => {
           {(cart.length) === 0 ? (<Typography sx={{ m: 4, fontSize: 25 }}>Your shopping Cart is empty!</Typography>) :
             (<Box>
               <Typography sx={{ m: 4, fontSize: 25 }}>Your Shopping Cart</Typography>
-              {cart?.map((item: {
-                id: number, title: string, images: any, price: number, quantity: number
-              }) => (
+              {cart?.map((item: any) => (
                 <CartItem
                   key={item.id}
                   id={item.id}

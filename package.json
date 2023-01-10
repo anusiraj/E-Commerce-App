@@ -38,7 +38,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile": "sass --watch src/styles/style.scss:compiled/style.css"
   },
   "jest": {
     "transformIgnorePatterns": [

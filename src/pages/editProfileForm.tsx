@@ -37,7 +37,9 @@ const ProfileForm = (props: any) => {
 
   const handleUpdate = () => {
     if (newPassword === newConfirmPassword) {
-      dispatch(editUser({ id: props.userId, name: newName, email: newEmail, password: newPassword }))
+      dispatch(editUser({
+        id: props.userId, name: newName, email: newEmail, password: newPassword
+      }))
       toast.success("Profile updated successfully!")
     }
     else {

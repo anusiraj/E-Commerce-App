@@ -4,10 +4,11 @@ export interface AuthType {
 export type Role = "admin"|"customer"
 
 export interface User {
+    userDetail: any
     id: number
     email: string
     password: string
     name: string
     role: string
-    avatar: string
+    avatar?: string
 }

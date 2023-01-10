@@ -51,20 +51,20 @@ const EntryPage = (props: any) => {
             <Carousel autoPlay showThumbs={false}>
                 <Grid sx={{ height: "70vh" }}>
                     <img src={window.location.origin + '/assets/hero3.jpg'} />
-                    <p className="legend">Legend 1</p>
+                    <Typography className="legend">Legend 1</Typography>
                 </Grid>
                 <Grid sx={{ height: "70vh" }}>
                     <img src={window.location.origin + '/assets/hero2.jpg'} />
-                    <p className="legend">Legend 2</p>
+                    <Typography className="legend">Legend 2</Typography>
                 </Grid>
                 <Grid sx={{ height: "70vh" }}>
                     <img src={window.location.origin + '/assets/hero1.jpg'} />
-                    <p className="legend">Legend 3</p>
+                    <Typography className="legend">Legend 3</Typography>
                 </Grid>
             </Carousel>
-            <Box sx={{ display: 'grid', justifyContent: "center", textAlign: "center" }}>
+            <Box className="body" sx={{ display: 'grid', justifyContent: "center", textAlign: "center" }}>
                 <Box>
-                    <Typography variant="overline" sx={{ fontWeight: 'bold', fontSize: 25, m: 5 }} component="div">
+                    <Typography variant="overline" sx={{ fontWeight: 'bold', fontSize: 25, m: 5 }} >
                         Our Featured products
                     </Typography>
                 </Box>

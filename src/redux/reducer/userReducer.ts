@@ -54,18 +54,17 @@ const userSlice = createSlice({
             }
             return action.payload
         })
-        build.addCase(fetchAllUser.rejected, (state, action) => {
+        build.addCase(fetchAllUser.rejected, (state) => {
             console.log("error in fetching data")
             return state
         })
-        build.addCase(fetchAllUser.pending, (state, action) => {
+        build.addCase(fetchAllUser.pending, (state) => {
             console.log("data is loading ...")
             return state
         })
         build.addCase(editUser.fulfilled, (state, action) => {
             if (action.payload) {
                 state.push(action.payload)
-                alert("Sucsess")
             } else {
                 return state
             }
