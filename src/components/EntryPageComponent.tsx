@@ -10,7 +10,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import {
-    Box, Grid, Card, Typography, Button, Paper, styled,
+    Box, Grid, Container, Typography, Button, Paper, styled,
     TextField, MenuItem, Modal, FormControl, Select, InputLabel,
 } from '@mui/material'
 
@@ -91,6 +91,7 @@ const EntryPage = (props: any) => {
                         Our Featured products
                     </Typography>
                 </Box>
+                <Grid>
                 <ImageList cols={4} gap={20} sx={{ width: 800, height: 450, m: 4 }}>
                     {products.map((item) => (
                         <ImageListItem key={item.id}>
@@ -114,6 +115,8 @@ const EntryPage = (props: any) => {
                         </ImageListItem>
                     ))}
                 </ImageList>
+                </Grid>
+                
                 <Box>
                     <Button variant="text" sx={{ fontWeight: 'normal', fontSize: 15, m: 5 }} component="div"
                         onClick={handleClick}>

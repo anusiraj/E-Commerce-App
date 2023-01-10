@@ -174,11 +174,13 @@ const Header = (props: any) => {
             {/* ))} */}
           </Box>
           <Box sx={{  display: 'grid', gap: 3, gridTemplateColumns: 'repeat(2, 1fr)' }}>
+            {!token? (''):(
               <IconButton sx = {{ mr: 2 }} aria-label="cart" onClick={() => navigate('/cart')}>
               <StyledBadge badgeContent={getTotalQuantity() || 0} color="secondary">
                 <AddShoppingCartIcon />
               </StyledBadge>
             </IconButton>
+            )}  
             <Avatar sx = {{ width: 70 }}>
             {!token ? (
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/auth'}>Login</Link>

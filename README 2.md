@@ -91,6 +91,7 @@ Clone the repository from github: git clone
 - User needs to Login or Register account to add items to cart.
 - Profile page
 - Modify and Delete their account from profile page.
+- Redux store is persisted using Redux Pesist, reload do not affects login and cart items.
 
 ## Features for Admin
 
