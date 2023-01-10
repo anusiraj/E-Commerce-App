@@ -8,7 +8,6 @@ import cartReducer from './reducer/cartReducer';
 import userReducer from './reducer/userReducer';
 import { authApi } from '../services/authApi';
 import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
 import {
   persistStore,
   persistReducer,
@@ -39,14 +38,13 @@ export const store = configureStore({
     userReducer,
     [authApi.reducerPath]: authApi.reducer,
   },
-  // middleware: [thunk]
   middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         }).concat(authApi.middleware),
-});
+})
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

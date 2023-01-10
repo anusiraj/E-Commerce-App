@@ -12,7 +12,7 @@ import Auth from './components/Auth'
 import ProductDetail from './components/ProductComponent'
 import PrivateRoute from './components/PrivateRouteComponent'
 import LoadingtoRedirect from './components/LoadingtoRedirectComponent'
-import Header from './components/HeaderComponent'
+import Footer from './components/FooterComponent'
 import EntryPage from './components/EntryPageComponent'
 import Cart from './components/CartComponent'
 import Profile from './components/profileComponent'
@@ -65,6 +65,7 @@ const App = () => {
           }
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
 

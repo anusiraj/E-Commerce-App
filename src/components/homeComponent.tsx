@@ -123,8 +123,8 @@ const Home = (props: any) => {
       <Header user={props.userDetail.email} />
       <Box sx={{ m: 3 }}>
         <Box sx={{ m: 3, display: 'flex', gap: 3, flexTemplateColumns: 'repeat(6, 1fr)', justifyContent: 'flex-end' }} >
-          <Button type="submit" sx={{}} onClick={sortPriceAsc}>Price low to high</Button>
-          <Button type="submit" sx={{}} onClick={sortPriceDesc}>Price high to low</Button>
+          <Button type="submit" onClick={sortPriceAsc}>Price low to high</Button>
+          <Button type="submit" onClick={sortPriceDesc}>Price high to low</Button>
           <TextField
             type="text" name="search" id="search" label="Search item" variant="outlined" size="small"
             value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -148,9 +148,7 @@ const Home = (props: any) => {
           </Box>
           {/* </TextField> */}
           {isAdmin ? (
-            <>
               <Button type="submit" variant="contained" onClick={addModalOpen}>Add Product</Button>
-              <Button type="submit" variant="contained"   >Add Category</Button></>
           ) : ('')}
           <Modal
             open={openAddModal}
@@ -166,11 +164,20 @@ const Home = (props: any) => {
         <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: 'repeat(4, 1fr)' }} >
           {currentTableData.map(product => (
             <Box>
-              <Item key={product.id} onClick={(e) => handleSelect(product.id)}>
+              {!isAdmin? (
+                 <Item key={product.id} onClick={(e) => handleSelect(product.id)}>
+                 <Box sx={{ width: "100%" }} component='img' src={product.images[0]} id="product_img"></Box>
+                 <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
+                 <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.price}€</Typography>
+               </Item>
+              ):(
+                <Item key={product.id}>
                 <Box sx={{ width: "100%" }} component='img' src={product.images[0]} id="product_img"></Box>
                 <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
                 <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.price}€</Typography>
               </Item>
+              )}
+             
               {!isAdmin ? (
                 <>
                   <Button type="submit" variant="contained" sx={{ mt: 1 }}

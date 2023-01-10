@@ -48,23 +48,46 @@ const EntryPage = (props: any) => {
     return (
         <>
             <Header />
-            <Carousel autoPlay showThumbs={false}>
-                <Grid sx={{ height: "70vh" }}>
-                    <img src={window.location.origin + '/assets/hero3.jpg'} />
-                    <Typography className="legend">Legend 1</Typography>
-                </Grid>
-                <Grid sx={{ height: "70vh" }}>
-                    <img src={window.location.origin + '/assets/hero2.jpg'} />
-                    <Typography className="legend">Legend 2</Typography>
-                </Grid>
-                <Grid sx={{ height: "70vh" }}>
-                    <img src={window.location.origin + '/assets/hero1.jpg'} />
-                    <Typography className="legend">Legend 3</Typography>
-                </Grid>
-            </Carousel>
-            <Box className="body" sx={{ display: 'grid', justifyContent: "center", textAlign: "center" }}>
+            <Grid>
+                <Carousel autoPlay showThumbs={false}>
+                    <Grid sx={{ height: "70vh" }}>
+                        <img src={window.location.origin + '/assets/hero3.jpg'} />
+                        <div style={{ position: "absolute", color: "white", top: 90, left: "20%", fontSize: "45px" }}>
+                            Explore the world of Online Shopping
+                            <br />
+                            <Button>
+                                <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Visit our store..</Link>
+                            </Button>
+                        </div></Grid>
+                    <Grid sx={{ height: "70vh" }}>
+                        <img src={window.location.origin + '/assets/hero2.jpg'} />
+                        <div style={{ position: "absolute", color: "white", top: 90, left: "40%", fontSize: "45px" }}>
+                            Awesome products
+                            <br />
+                            <Button>
+                                <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Visit our store..</Link>
+                            </Button>
+                        </div>
+                    </Grid>
+                    <Grid sx={{ height: "70vh" }}>
+                        <img src={window.location.origin + '/assets/hero1.jpg'} />
+                        <div style={{
+                            position: "absolute", color: "white", top: 90, left: "20%", fontSize: "45px",
+                            fontFamily: "sans-serif",
+                            fontStretch: "expanded"
+                        }}>
+                            Always deliver more than expected
+                            <br />
+                            <Button>
+                                <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Visit our store..</Link>
+                            </Button>
+                        </div>
+                    </Grid>
+                </Carousel>
+            </Grid>
+            <Box className="body" sx={{ display: 'grid', justifyContent: "center", textAlign: "center", mt: 8 }}>
                 <Box>
-                    <Typography variant="overline" sx={{ fontWeight: 'bold', fontSize: 25, m: 5 }} >
+                    <Typography variant="overline" sx={{ fontWeight: 'bold', fontSize: 25, m: 7 }} >
                         Our Featured products
                     </Typography>
                 </Box>
@@ -98,7 +121,6 @@ const EntryPage = (props: any) => {
                     </Button>
                 </Box>
             </Box>
-            <Footer />
         </>
     )
 }

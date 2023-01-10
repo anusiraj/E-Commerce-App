@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Paper } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -169,16 +170,16 @@ const Header = (props: any) => {
             >
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/'}>Home</Link>
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>Products</Link>
-              <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/home'}>About</Link>
             </Button>
             {/* ))} */}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-              <IconButton aria-label="cart" onClick={() => navigate('/cart')}>
+          <Box sx={{  display: 'grid', gap: 3, gridTemplateColumns: 'repeat(2, 1fr)' }}>
+              <IconButton sx = {{ mr: 2 }} aria-label="cart" onClick={() => navigate('/cart')}>
               <StyledBadge badgeContent={getTotalQuantity() || 0} color="secondary">
                 <AddShoppingCartIcon />
               </StyledBadge>
             </IconButton>
+            <Avatar sx = {{ width: 70 }}>
             {!token ? (
               <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", margin: 10 }} to={'/auth'}>Login</Link>
             ) : (
@@ -219,7 +220,7 @@ const Header = (props: any) => {
                 </Menu>
               </>
             )}
-
+            </Avatar>
           </Box>
         </Toolbar>
       </Container>
