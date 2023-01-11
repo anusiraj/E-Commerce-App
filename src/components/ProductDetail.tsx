@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 
-import CustomizedDialogs from '../pages/review'
 import { Box, Typography, Paper, styled, Button } from '@mui/material'
 
-import Header from "./HeaderComponent"
+import Header from "./Header"
 
 import { addToCart } from '../redux/reducer/cartReducer'
 import { selectAuth } from '../redux/reducer/authReducer'
@@ -37,7 +36,6 @@ const ProductDetail = (props: any) => {
   }, [productId]);
 
   const handleOpen = (e: React.ChangeEvent<HTMLSelectElement> | any) => {
-    < CustomizedDialogs />
   }
   const handleCart = (product: any) => {
     if (token) {

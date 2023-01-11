@@ -2,8 +2,8 @@ import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 
 import { Box, Grid, Card, Typography, Button, Paper, styled, TextField, MenuItem } from '@mui/material'
 
-import CartItem from './cartPage'
-import Header from "./HeaderComponent"
+import CartItem from './CartItem'
+import Header from "./Header"
 
 import { Product } from '../types/Product'
 

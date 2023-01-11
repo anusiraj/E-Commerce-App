@@ -3,9 +3,9 @@ import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 
 import { Box, Typography, Button, Paper, styled, Modal } from '@mui/material'
 
-import ProfileForm from '../pages/editProfileForm'
-import DeleteForm from '../pages/deleteUserAccount'
-import Header from "./HeaderComponent"
+import ProfileForm from '../pages/profileForm'
+import DeleteForm from '../pages/DeleteForm'
+import Header from "./Header"
 
 import { fetchAllUser } from '../redux/reducer/userReducer'
 import { User } from '../types/Auth'

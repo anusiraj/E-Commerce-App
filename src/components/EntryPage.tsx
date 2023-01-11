@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import { Box, Grid, Typography, Button } from '@mui/material'
 
-import Header from "./HeaderComponent"
+import Header from "./Header"
 
 import { fetchFeaturedProducts } from '../redux/reducer/productReducer'
 

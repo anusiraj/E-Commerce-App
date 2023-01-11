@@ -1,7 +1,7 @@
 import { useAppSelector } from '../hooks/reduxHook'
 import { selectAuth } from '../redux/reducer/authReducer'
 
-import LoadingtoRedirect from './LoadingtoRedirectComponent'
+import LoadingtoRedirect from './LoadingtoRedirect'
 const PrivateRoute = ({children}:{children:JSX.Element|JSX.Element[]}) => {
     const {token} = useAppSelector(selectAuth)
   return (

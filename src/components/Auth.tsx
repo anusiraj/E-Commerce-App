@@ -10,7 +10,7 @@ import { LockOutlined } from '@mui/icons-material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import Header from "./HeaderComponent"
+import Header from "./Header"
 
 import { setUser } from '../redux/reducer/authReducer'
 import { useLoginUserMutation, useRegisterUserMutation } from '../services/authApi'

@@ -7,14 +7,14 @@ import "./styles/style.scss";
 
 import { Product } from './types/Product'
 
-import Home from './components/homeComponent'
+import Home from './components/Home'
 import Auth from './components/Auth'
-import ProductDetail from './components/ProductComponent'
-import LoadingtoRedirect from './components/LoadingtoRedirectComponent'
-import Footer from './components/FooterComponent'
-import EntryPage from './components/EntryPageComponent'
-import Cart from './components/CartComponent'
-import Profile from './components/profileComponent'
+import ProductDetail from './components/ProductDetail'
+import LoadingtoRedirect from './components/LoadingtoRedirect'
+import Footer from './components/Footer'
+import EntryPage from './components/EntryPage'
+import Cart from './components/Cart'
+import Profile from './components/Profile'
 
 import EditProduct from './pages/editProduct'
 
