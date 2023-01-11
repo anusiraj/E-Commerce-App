@@ -1,22 +1,19 @@
-import { Box, Typography, Paper, styled, Button } from '@mui/material'
-import axios from 'axios';
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
-import Header from "./HeaderComponent"
+
 import CustomizedDialogs from '../pages/review'
+import { Box, Typography, Paper, styled, Button } from '@mui/material'
+
+import Header from "./HeaderComponent"
+
 import { addToCart } from '../redux/reducer/cartReducer'
 import { selectAuth } from '../redux/reducer/authReducer'
-
-import { Product, CreateProduct } from '../types/Product'
 
 const ProductDetail = (props: any) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [product, setProduct] = useState({ id: 0, title: "", images: [''], price: 0, description: "" })
-  const { PRid } = useParams()
   const { token } = useAppSelector(selectAuth)
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -36,30 +33,29 @@ const ProductDetail = (props: any) => {
         console.log("error", error);
       }
     }
-
     fetchData(productId);
   }, [productId]);
 
   const handleOpen = (e: React.ChangeEvent<HTMLSelectElement> | any) => {
     < CustomizedDialogs />
   }
-  const handleCart = (product:any) => {
-    if(token) {
+  const handleCart = (product: any) => {
+    if (token) {
       dispatch(addToCart(product))
     }
     else {
       navigate('/private')
     }
   }
+
   return (
     <>
       <Header />
-      {/* <Box sx={{ display: 'grid', width: "50%", height: "70%", margin: "4rem" }}> */}
       <Box sx={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(2, 1fr)', margin: "4rem" }} >
         <Item key={product.id}>
           <Box sx={{ width: "100%" }} component='img' src={product.images[0]} id="product_img"></Box>
           <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
-          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() =>handleCart(product)}>
+          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => handleCart(product)}>
             Add To Cart
           </Button>
         </Item>
@@ -69,9 +65,7 @@ const ProductDetail = (props: any) => {
           <Button type="submit" variant="outlined" sx={{ mt: 3, mb: 2 }} onClick={(e) => handleOpen(e)}>Read Reviews</Button>
         </Item>
       </Box>
-      {/* </Box> */}
     </>
-
   )
 }
 

@@ -1,14 +1,14 @@
-import { ReactNodeArray } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import { useEffect, useState } from 'react'
-import { fetchAllUser } from '../redux/reducer/userReducer'
-import React from 'react'
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
+
 import { Box, Typography, Button, Paper, styled, Modal } from '@mui/material'
 
-import { User } from '../types/Auth'
 import ProfileForm from '../pages/editProfileForm'
 import DeleteForm from '../pages/deleteUserAccount'
 import Header from "./HeaderComponent"
+
+import { fetchAllUser } from '../redux/reducer/userReducer'
+import { User } from '../types/Auth'
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -20,25 +20,19 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-};
+}
 const Profile = (props: User) => {
     const dispatch = useAppDispatch()
-    const email = JSON.stringify(props.userDetail.password)
     const users = useAppSelector(state => state.userReducer.filter(item => {
         return item.email === props.userDetail.email
     }))
-    const [user, setUser] = useState('')
-    console.log("User info is" + JSON.stringify(props.userDetail.email))
-    console.log("User info is" + JSON.stringify(props.userDetail.password))
-    const password = JSON.stringify(props.userDetail.password)
-
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-    }));
+    }))
     useEffect(() => {
         dispatch(fetchAllUser())
     }, [])
@@ -47,7 +41,6 @@ const Profile = (props: User) => {
             try {
                 const users = await fetch(`https://api.escuelajs.co/api/v1/users`)
                 const data = await users.json()
-                setUser(data)
             } catch (error) {
                 console.log("error", error)
             }

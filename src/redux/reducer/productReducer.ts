@@ -86,7 +86,7 @@ const productSlice = createSlice({
                 state.sort((a, b) => (b.price > a.price ? 1 : -1));
             }
         },
-    }, /* manage sync process */
+    }, 
     extraReducers: (build) => {
         build.addCase(fetchAllProducts.fulfilled, (state, action) => {
             if (action.payload && "message" in action.payload) {

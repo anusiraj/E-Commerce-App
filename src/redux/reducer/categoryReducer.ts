@@ -1,12 +1,11 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios, { AxiosResponse } from "axios";
+import { createAsyncThunk, createSlice  } from "@reduxjs/toolkit";
 
 import { Category } from "../../types/Category";
 
 const initialState: Category[] = []
 export const fetchAllCategories = createAsyncThunk(
     'fetchAllCategories',
-    async(selectedCategory) => {
+    async() => {
         try {
             const jsondata = await fetch("https://api.escuelajs.co/api/v1/categories")
             const data: Category|Error = await jsondata.json()

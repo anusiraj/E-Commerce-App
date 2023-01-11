@@ -15,7 +15,6 @@ import Header from "./HeaderComponent"
 
 import { fetchFeaturedProducts } from '../redux/reducer/productReducer'
 
-
 const EntryPage = (props: any) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()

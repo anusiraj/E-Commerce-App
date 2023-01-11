@@ -18,17 +18,16 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
+
 const persistConfig = {
   key: 'root',
   storage,
 }
-
-const rootReducer = combineReducers({ 
+const rootReducer = combineReducers({
   cart: cartReducer,
   auth: authReducer
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-
 
 export const store = configureStore({
   reducer: {
@@ -39,11 +38,11 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }).concat(authApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(authApi.middleware),
 })
 
 export type AppDispatch = typeof store.dispatch;

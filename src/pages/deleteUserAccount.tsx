@@ -5,8 +5,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
 
-
-import { setUser, logout } from '../redux/reducer/authReducer'
+import { logout } from '../redux/reducer/authReducer'
 import { deleteUser } from '../redux/reducer/userReducer'
 
 const DeleteForm = (props: any) => {
@@ -19,6 +18,7 @@ const DeleteForm = (props: any) => {
         toast.success("User logout successfully")
         navigate('/auth')
     }
+    
     return (
         <Box>
             <Typography>Are you sure you want to delete!</Typography>

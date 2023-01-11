@@ -1,7 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { Cart } from "../../types/Cart";
-import { Product } from '../../types/Product';
+import { Product } from '../../types/Product'
 const cart: string[] = []
 const initialState = {
   cartItems: []
@@ -35,7 +34,7 @@ const cartSlice = createSlice({
       state.cartItems = removeItem;
     },
   },
-});
+})
 
 const cartReducer = cartSlice.reducer;
 export const {

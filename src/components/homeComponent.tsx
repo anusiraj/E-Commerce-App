@@ -2,10 +2,10 @@ import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit'
 import React, { useEffect, useState, useMemo } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import { toast } from 'react-toastify'
-import { useNavigate, Link, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import {
-  Box, Grid, Card, Typography, Button, Paper, styled,
+  Box, Typography, Button, Paper, styled,
   TextField, MenuItem, Modal, FormControl, Select, InputLabel,
 } from '@mui/material'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -13,17 +13,14 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { fetchAllProducts, sortByPrice, deleteProduct } from '../redux/reducer/productReducer'
 import { fetchAllCategories } from '../redux/reducer/categoryReducer'
-import { setUser, logout } from '../redux/reducer/authReducer'
 import { addToCart } from '../redux/reducer/cartReducer'
 import { selectAuth } from '../redux/reducer/authReducer'
 
 import Header from "./HeaderComponent"
 import AddProduct from '../pages/createProduct'
-import EditProduct from '../pages/editProduct'
 import Pagination from './pagination'
 
 import { Product } from '../types/Product'
-import { AuthType } from '../types/Auth'
 import { WritableDraft } from 'immer/dist/internal'
 
 let PageSize = 12;
@@ -39,7 +36,6 @@ const Home = (props: any) => {
     return item.title.toLowerCase().indexOf(search.toLowerCase()) > -1
   }))
   const [selectedCategory, setSelectedCategory] = useState(1)
-  const [singleProductId, setSingleProductId] = useState(0)
   const [isAdmin, setAdmin] = useState(false)
 
   const currentTableData = useMemo(() => {
@@ -47,7 +43,6 @@ const Home = (props: any) => {
     const lastPageIndex = firstPageIndex + PageSize;
     return products.slice(firstPageIndex, lastPageIndex);
   }, [products,selectedCategory]);
-
 
   const sortPriceAsc = () => {
     dispatch(sortByPrice("asc"))
@@ -113,7 +108,6 @@ const Home = (props: any) => {
     boxShadow: 24,
     p: 4,
   }
-
   const [openAddModal, setAddModalOpen] = useState(false);
   const addModalOpen = () => setAddModalOpen(true)
   const addModalClose = () => setAddModalOpen(false)
@@ -146,7 +140,6 @@ const Home = (props: any) => {
               </Select>
             </FormControl>
           </Box>
-          {/* </TextField> */}
           {isAdmin ? (
               <Button type="submit" variant="contained" onClick={addModalOpen}>Add Product</Button>
           ) : ('')}
@@ -204,12 +197,9 @@ const Home = (props: any) => {
       />
       </Box>
     </>
-
   )
 }
-
 export default Home
-
 function dispatch(arg0: AsyncThunkAction<Product[] | Error | undefined, void, { state?: unknown; dispatch?: Dispatch<AnyAction> | undefined; extra?: unknown; rejectValue?: unknown; serializedErrorType?: unknown; pendingMeta?: unknown; fulfilledMeta?: unknown; rejectedMeta?: unknown }>) {
   throw new Error('Function not implemented.')
 }

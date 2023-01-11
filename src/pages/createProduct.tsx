@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { Box, TextField, Button, Typography } from '@mui/material'
-import { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
+import { useState, useEffect } from 'react'
+import { Box, TextField, Button } from '@mui/material'
+
+import { useAppDispatch } from '../hooks/reduxHook'
+
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 import { createProduct } from '../redux/reducer/productReducer'
 import axios from 'axios';
-
 
 const AddProduct = () => {
     const dispatch = useAppDispatch()
@@ -40,11 +40,9 @@ const AddProduct = () => {
         }))
         toast.success("New product added successfully!")
     }
-
     const [selectedImage, setSelectedImage] = useState<FileList | null>(null);
     useEffect(() => {
         if (selectedImage) {
-            console.log("FileName is", selectedImage[0].name)
             axios.post("https://api.escuelajs.co/api/v1/files/upload", {
                 file: selectedImage[0]
             }, {
@@ -119,5 +117,4 @@ const AddProduct = () => {
         </Box>
     )
 }
-
 export default AddProduct

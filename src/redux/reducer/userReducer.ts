@@ -1,16 +1,15 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
-import axios, { AxiosResponse } from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import axios, { AxiosResponse } from "axios"
 
 import { User } from "../../types/Auth";
 
 const initialState: User[] = []
 export const fetchAllUser = createAsyncThunk(
     'fetchAllUser',
-    async() => {
+    async () => {
         try {
             const jsondata = await fetch("https://api.escuelajs.co/api/v1/users")
-            const data: User|Error = await jsondata.json()
+            const data: User | Error = await jsondata.json()
             return data
         }
         catch (e: any) {
@@ -20,7 +19,7 @@ export const fetchAllUser = createAsyncThunk(
 )
 export const editUser = createAsyncThunk(
     "editUser",
-    async (payload: {id: number, name:string, email:string, password: string}) => {
+    async (payload: { id: number, name: string, email: string, password: string }) => {
         try {
             const response: AxiosResponse<User, any> = await axios.put(`https://api.escuelajs.co/api/v1/users/${payload.id}`, payload)
             return response.data
@@ -31,7 +30,7 @@ export const editUser = createAsyncThunk(
 )
 export const deleteUser = createAsyncThunk(
     "deleteUser",
-    async (payload: {id: number}) => {
+    async (payload: { id: number }) => {
         try {
             const response: AxiosResponse<User, any> = await axios.delete(`https://api.escuelajs.co/api/v1/users/${payload.id}`)
             return response.data

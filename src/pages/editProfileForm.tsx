@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Box, TextField, Button, Typography } from '@mui/material'
-import { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
+import { useAppDispatch } from '../hooks/reduxHook'
+import { useState } from 'react'
+
+import { Box, TextField, Button } from '@mui/material'
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 import { editUser } from '../redux/reducer/userReducer'
 
@@ -18,15 +18,6 @@ const ProfileForm = (props: any) => {
   }
   const [formValue, setFormValue] = useState(initialState)
   const { name, email, password, confirmPassword, avatar } = formValue
-  // const handleChange = (e: any) => {
-  //   setFormValue({ ...formValue, [e.target.name]: e.target.value })
-  //   useEffect(() => {
-  //     const payload = {
-  //       formValue
-  //     }
-  //     dispatch(editUser({newName, newEmail,[e.target.name]:e.target.value}))
-  //   },[])
-  // }
   const newName = formValue.name
   const newEmail = formValue.email
   const newPassword = formValue.password
@@ -34,7 +25,6 @@ const ProfileForm = (props: any) => {
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value })
   }
-
   const handleUpdate = () => {
     if (newPassword === newConfirmPassword) {
       dispatch(editUser({
@@ -64,7 +54,6 @@ const ProfileForm = (props: any) => {
         id="name"
         label="Type your name"
         name="name"
-        // autoComplete="name"
         autoFocus
         value={name} onChange={handleChange} />
       <TextField margin="normal"
@@ -100,6 +89,6 @@ const ProfileForm = (props: any) => {
         value={avatar} onChange={handleChange} />
       <Button onClick={handleUpdate}>Submit</Button>
     </Box>
-  );
+  )
 }
 export default ProfileForm
