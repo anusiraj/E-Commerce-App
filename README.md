@@ -5,7 +5,7 @@ Lu-Lu is an e-commerce website made with React-Redux,Typescript, Material UI and
 
 # Deploy link
 
-Live link: https://fs13-frontend-project-1lpu-71ay3mr02-anusiraj.vercel.app/
+Live link: https://fs13-frontend-project-1lpu-6nkmlmor9-anusiraj.vercel.app/
 
 # Requirements
 
