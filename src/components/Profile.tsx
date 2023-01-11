@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 
 import { Box, Typography, Button, Paper, styled, Modal } from '@mui/material'
 
-import ProfileForm from '../pages/profileForm'
-import DeleteForm from '../pages/DeleteForm'
+import ProfileForm from '../pages/editProfileForm'
+import DeleteForm from '../pages/deleteForm'
 import Header from "./Header"
 
 import { fetchAllUser } from '../redux/reducer/userReducer'
@@ -23,7 +23,7 @@ const style = {
 }
 const Profile = (props: User) => {
     const dispatch = useAppDispatch()
-    const users = useAppSelector(state => state.userReducer.filter(item => {
+    const users = useAppSelector(state => state.userReducer.filter((item: { email: string }) => {
         return item.email === props.userDetail.email
     }))
     const Item = styled(Paper)(({ theme }) => ({
@@ -66,7 +66,7 @@ const Profile = (props: User) => {
                 ))}
             </Box>
             <Box sx={{ display: 'grid', width: "50%", height: "70%", mt: "4rem", ml: '20rem', alignItems: 'center' }}>
-                {users.map(user => (
+                {users.map((user: { email: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | null | undefined; id: Key | null | undefined; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; password: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; role: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined }) => (
                     <Box>
                         {(user.email !== "admin@mail.com") ? (
                             <Item key={user.id} >

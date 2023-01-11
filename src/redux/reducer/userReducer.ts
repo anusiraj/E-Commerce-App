@@ -1,9 +1,11 @@
+import { ContactlessOutlined } from "@mui/icons-material";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosError, AxiosResponse } from "axios"
 
 import { User } from "../../types/Auth";
 
 const initialState: User[] = []
+
 export const fetchAllUser = createAsyncThunk(
     'fetchAllUser',
     async () => {
@@ -34,8 +36,9 @@ export const deleteUser = createAsyncThunk(
         try {
             const response: AxiosResponse<User, any> = await axios.delete(`https://api.escuelajs.co/api/v1/users/${payload.id}`)
             return response.data
-        } catch (e) {
-            console.log(e)
+        } catch (error) {
+            const e = (error as AxiosError)
+            return e
         }
     }
 )
@@ -68,6 +71,14 @@ const userSlice = createSlice({
                 return state
             }
         })
+        // build.addCase(deleteUser.fulfilled, (state, action) => {
+        //     if (action.payload as AxiosError) {
+        //         console.log("The error message", action.payload)
+        //         state.errorMessage = action.payload
+        //     } else {
+        //         return state
+        //     }
+        // })
     }
 })
 const userReducer = userSlice.reducer

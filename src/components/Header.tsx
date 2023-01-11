@@ -44,7 +44,7 @@ const Header = (props: any) => {
   const cart = useAppSelector(state => state.persistedReducer.cart.cartItems)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const users = useAppSelector(state => state.userReducer.filter(item => {
+  const users = useAppSelector(state => state.userReducer.filter((item: { email: any }) => {
     return item.email === props.user
   }))
   useEffect(() => {

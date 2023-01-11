@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material'
-import { useAppDispatch } from '../hooks/reduxHook'
-import { toast } from 'react-toastify'
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
+import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
 
@@ -10,15 +10,19 @@ import { deleteUser } from '../redux/reducer/userReducer'
 
 const DeleteForm = (props: any) => {
     const dispatch = useAppDispatch()
+    const user = useAppSelector(state => state.userReducer)
     const navigate = useNavigate()
-    const handleDelete = () => {
-        dispatch(deleteUser({ id: props.userId }))
+    const handleDelete = async() => {
+        try {
+            await dispatch(deleteUser({ id: props.userId }))
+        }
+        catch(e) {
+            console.log(e)
+        }
         toast.success("Your account has been deleted!")
         dispatch(logout())
-        toast.success("User logout successfully")
         navigate('/auth')
     }
-    
     return (
         <Box>
             <Typography>Are you sure you want to delete!</Typography>

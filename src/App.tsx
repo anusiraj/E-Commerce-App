@@ -54,7 +54,7 @@ const App = () => {
             <LoadingtoRedirect />
           } />
           <Route path="/profile" element={
-            <Profile userDetail={userDetailedinfo} id={0} email={''} password={''} name={''} role={''} />
+            <Profile userDetail={userDetailedinfo} id={0} email={''} password={''} name={''} role={''} errorMessage={''} />
           } />
           <Route path="/edit-product" element={
             <EditProduct pDetail={productDetail} />
