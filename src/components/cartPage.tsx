@@ -1,18 +1,18 @@
+import { useAppDispatch } from '../hooks/reduxHook'
+import { Box, Typography, Button, Paper, styled, TextField } from '@mui/material'
 import { incrementQuantity, decrementQuantity, removeItem } from '../redux/reducer/cartReducer'
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
-import { Box, Grid, Card, Typography, Button, Paper, styled, TextField, MenuItem } from '@mui/material'
 
 const CartItem = (props: { id: number, title: string, image: string, price: number, quantity: number }) => {
-  const { id, title, price, image, quantity } = props;
   const dispatch = useAppDispatch()
+  const { id, title, price, image, quantity } = props;
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  }));
-  console.log("The image is ", image)
+  }))
+
   return (
     <Box>
       <Item>
@@ -30,7 +30,7 @@ const CartItem = (props: { id: number, title: string, image: string, price: numb
             <Typography>{quantity}</Typography>
             <Button onClick={() => dispatch(decrementQuantity(id))}>-</Button>
           </Box>
-          <Button sx = {{ height : "40%", mt: 3 }}
+          <Button sx={{ height: "40%", mt: 3 }}
             className='cartItem__removeButton'
             onClick={() => dispatch(removeItem(id))}>
             Remove

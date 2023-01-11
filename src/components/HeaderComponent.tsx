@@ -1,34 +1,30 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Paper } from '@mui/material'
-import { styled } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Badge, { BadgeProps } from '@mui/material/Badge';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHook';
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import { styled } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import Badge, { BadgeProps } from '@mui/material/Badge'
+
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
 import { useNavigate, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { logout } from '../redux/reducer/authReducer'
+import { logout, selectAuth } from '../redux/reducer/authReducer'
 import { fetchAllUser } from '../redux/reducer/userReducer'
-import { selectAuth } from '../redux/reducer/authReducer'
-import { LocalActivityOutlined } from '@mui/icons-material';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-
+const pages = ['Products', 'Pricing', 'Blog']
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
     right: -3,
@@ -37,12 +33,13 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     padding: '0 4px',
     background: "red"
   },
-}));
+}))
 
 const Header = (props: any) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { token } = useAppSelector(selectAuth)
+  const cart = useAppSelector(state => state.persistedReducer.cart.cartItems)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const users = useAppSelector(state => state.userReducer.filter(item => {
@@ -53,20 +50,16 @@ const Header = (props: any) => {
   }, [])
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
+  }
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-
+  }
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
+  }
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-  const cart = useAppSelector(state => state.persistedReducer.cart.cartItems)
-
+  }
   const getTotalQuantity = () => {
     let total = 0
     cart.forEach((item: { quantity: number, }) => {
@@ -75,15 +68,11 @@ const Header = (props: any) => {
     })
     return total
   }
-  const handleProfile = () => {
-    navigate('/profile')
-  }
   const handleClick = () => {
     dispatch(logout())
     toast.success("User logout successfully")
     navigate('/auth')
   }
-
 
   return (
     <AppBar position="static">
@@ -227,6 +216,6 @@ const Header = (props: any) => {
         </Toolbar>
       </Container>
     </AppBar>
-  );
+  )
 }
 export default Header;

@@ -1,9 +1,7 @@
-import * as React from "react";
-import Container from "@mui/material/Container";
-import { Link } from 'react-router-dom'
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
+import Container from "@mui/material/Container"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Paper from "@mui/material/Paper"
 
 const Footer = () => {
     return (
@@ -35,7 +33,6 @@ const Footer = () => {
                         Lu-Lu
                     </Typography>
                 </Box>
-
                 <Box
                     sx={{
                         flexGrow: 1,

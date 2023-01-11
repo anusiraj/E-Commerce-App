@@ -75,34 +75,41 @@ const Profile = (props: User) => {
             <Box sx={{ display: 'grid', width: "50%", height: "70%", mt: "4rem", ml: '20rem', alignItems: 'center' }}>
                 {users.map(user => (
                     <Box>
-                        <Item key={user.id} >
-                            <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Name: {user.name}</Typography>
-                            <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Email: {user.email}</Typography>
-                            <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>Password: {user.password}</Typography>
-                            <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>Role: {user.role}</Typography>
-                            <Button onClick={handleEditOpen}>Edit Profile</Button>
-                            <Modal
-                                open={openEdit}
-                                onClose={handleEditClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
-                            >
-                                <Box sx={style}>
-                                    <ProfileForm userId={user.id} />
-                                </Box>
-                            </Modal>
-                            <Button onClick={handleDeleteOpen}>Delete Account</Button>
-                            <Modal
-                                open={openDelete}
-                                onClose={handleDeleteClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
-                            >
-                                <Box sx={style}>
-                                    <DeleteForm userId={user.id} />
-                                </Box>
-                            </Modal>
-                        </Item>
+                        {(user.email !== "admin@mail.com") ? (
+                            <Item key={user.id} >
+                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Name: {user.name}</Typography>
+                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Email: {user.email}</Typography>
+                                <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>Password: {user.password}</Typography>
+                                <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }}>Role: {user.role}</Typography>
+                                <Button onClick={handleEditOpen}>Edit Profile</Button>
+                                <Modal
+                                    open={openEdit}
+                                    onClose={handleEditClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <ProfileForm userId={user.id} />
+                                    </Box>
+                                </Modal>
+                                <Button onClick={handleDeleteOpen}>Delete Account</Button>
+                                <Modal
+                                    open={openDelete}
+                                    onClose={handleDeleteClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <DeleteForm userId={user.id} />
+                                    </Box>
+                                </Modal>
+                            </Item>
+                        ) : (
+                            <Item>
+                                <Typography>You are an admin!</Typography>
+                            </Item>
+                        )}
+
                     </Box>
                 ))}
             </Box>

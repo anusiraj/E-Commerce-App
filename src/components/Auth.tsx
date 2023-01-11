@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+
 import { useAppDispatch } from '../hooks/reduxHook'
+
 import { Box, Button, Typography, Grid, Paper, Avatar, TextField } from '@mui/material'
 import { LockOutlined } from '@mui/icons-material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -19,7 +21,7 @@ const Copyright = (props: any) => {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" to={'https://mui.com/'} >
+            <Link color="inherit" to={'/'} >
                 Lu-Lu
             </Link>{' '}
             {new Date().getFullYear()}
@@ -28,7 +30,6 @@ const Copyright = (props: any) => {
     );
 }
 const theme = createTheme();
-
 const initialState = {
     name: "",
     email: "",
@@ -36,6 +37,7 @@ const initialState = {
     confirmPassword: "",
     avatar: ""
 }
+
 const Auth = (props: any) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
@@ -96,6 +98,7 @@ const Auth = (props: any) => {
             toast.error((RegisterEror as any).data.message)
         }
     }, [isLoginError, isRegisterError])
+
     return (
         <>
             <Header />
@@ -138,7 +141,6 @@ const Auth = (props: any) => {
                                         id="name"
                                         label="Type your name"
                                         name="name"
-                                        // autoComplete="name"
                                         autoFocus
                                         value={name} onChange={handleChange}
                                     />
@@ -151,7 +153,6 @@ const Auth = (props: any) => {
                                     id="email"
                                     label="Type your email"
                                     name="email"
-                                    // autoComplete="email"
                                     autoFocus
                                     value={email} onChange={handleChange}
                                 />
@@ -163,7 +164,6 @@ const Auth = (props: any) => {
                                     id="password"
                                     label="Type your password"
                                     name="password"
-                                    // autoComplete="current-password"
                                     value={password} onChange={handleChange}
                                 />
                                 {showRegister && (
@@ -175,7 +175,6 @@ const Auth = (props: any) => {
                                         type="password"
                                         label="Confirm your password"
                                         name="confirmPassword"
-                                        // autoComplete="current-password"
                                         value={confirmPassword} onChange={handleChange}
                                     />
                                 )}
@@ -217,7 +216,6 @@ const Auth = (props: any) => {
                 </Grid>
             </ThemeProvider>
         </>
-
     )
 }
 export default Auth

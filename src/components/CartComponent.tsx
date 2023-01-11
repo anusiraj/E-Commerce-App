@@ -1,5 +1,5 @@
-import { incrementQuantity, decrementQuantity, removeItem } from '../redux/reducer/cartReducer'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHook'
+
 import { Box, Grid, Card, Typography, Button, Paper, styled, TextField, MenuItem } from '@mui/material'
 
 import CartItem from './cartPage'
@@ -15,7 +15,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
-
 export const Total = () => {
   const cart = useAppSelector((state) => state.persistedReducer.cart.cartItems)
   const getTotal = () => {
@@ -42,7 +41,7 @@ export const Total = () => {
 
 const Cart = () => {
   const cart = useAppSelector((state) => state.persistedReducer.cart.cartItems)
-  const dispatch = useAppDispatch()
+  
   return (
     <>
       <Header />
