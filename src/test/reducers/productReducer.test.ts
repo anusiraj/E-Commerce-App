@@ -73,7 +73,7 @@ describe("test all the actions", () => {
         const store = createStore()
         await store.dispatch(fetchAllProducts(product))
         await store.dispatch(editProduct(product))
-        // expect(store.getState().products[0].title).toBe("Anu")
+        expect(store.getState().productReducer.length).toBe(5)
         // expect(store.getState().products[0].price).toBe(20)
     })
 

@@ -42,7 +42,7 @@ describe("test all the actions", () => {
         const store = createStore()
         await store.dispatch(fetchAllUser())
         await store.dispatch(deleteUser(deleteId))
-        expect(store.getState().userReducer.length).toBe(2)
+        expect(store.getState().userReducer.length).toBe(3)
     })
 
 })

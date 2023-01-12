@@ -18,7 +18,7 @@ import { selectAuth } from '../redux/reducer/authReducer'
 
 import Header from "./Header"
 import AddProduct from '../pages/addProduct'
-import Pagination from './Pagination'
+import Pagination from './pagination'
 
 import { Product } from '../types/Product'
 import { WritableDraft } from 'immer/dist/internal'

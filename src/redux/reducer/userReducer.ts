@@ -61,7 +61,7 @@ const userSlice = createSlice({
             return state
         })
         build.addCase(fetchAllUser.pending, (state) => {
-            console.log("data is loading ...")
+            // console.log("data is loading ...")
             return state
         })
         build.addCase(editUser.fulfilled, (state, action) => {
