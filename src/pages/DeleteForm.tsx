@@ -6,7 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
 
 import { logout } from '../redux/reducer/authReducer'
-import { deleteUser } from '../redux/reducer/userReducer'
+import { fetchAllUser, deleteUser } from '../redux/reducer/userReducer'
+import axios from 'axios';
+import { User } from '../types/Auth';
 
 const DeleteForm = (props: any) => {
     const dispatch = useAppDispatch()
@@ -15,13 +17,24 @@ const DeleteForm = (props: any) => {
     const handleDelete = async() => {
         try {
             await dispatch(deleteUser({ id: props.userId }))
+            const newApi = await fetch("https://api.escuelajs.co/api/v1/users")
+            const data: any = await newApi.json()
+            const isExist = data.filter((currentUser: { id: any; }) => {
+                return currentUser.id == props.userId
+            })
+            if(isExist.length === 0) {
+                toast.success("Your account has been deleted!")
+                dispatch(logout())
+                navigate('/auth')
+            }
+            else {
+                toast.error("Server Error! Try after some time")
+            }
+
         }
-        catch(e) {
-            console.log(e)
+        catch(error) {
+            return error
         }
-        toast.success("Your account has been deleted!")
-        dispatch(logout())
-        navigate('/auth')
     }
     return (
         <Box>
@@ -31,3 +44,7 @@ const DeleteForm = (props: any) => {
     )
 }
 export default DeleteForm
+function async(userId: any) {
+    throw new Error('Function not implemented.');
+}
+
