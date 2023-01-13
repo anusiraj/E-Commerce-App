@@ -60,16 +60,15 @@ Product pages before and after Login
 Before Login
 
 ![App Screenshot](https://i.ibb.co/LNKN5Xb/Product1.png)
-
 ![App Screenshot](https://i.ibb.co/9twYM8c/Product2.png)
 
 After Login
 
-![App Screenshot](https://i.ibb.co/GJd4dBz/Product-Login.png)
+![App Screenshot](https://i.ibb.co/W2hRWcv/Screenshot-2023-01-13-at-10-27-04-AM.png)
 
 Single Product Page
 
-![App Screenshot](https://i.ibb.co/Xb9sqKr/Single-Pro.png)
+![App Screenshot](https://i.ibb.co/yBSpddW/single-Product.png)
 
 Login Page
 
@@ -85,7 +84,7 @@ Profile page
 
 Admin Page
 
-![App Screenshot](https://i.ibb.co/GCDZTkc/Admin-Page.png)
+![App Screenshot](https://i.ibb.co/ygrc7m7/admin.png)
 
 ## Future features
 
