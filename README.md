@@ -94,7 +94,8 @@ Admin Page
 - Animation on Product card and buttons
 
 # Project Structure
-   
+
+```bash
 ├── public
 │   ├── assets
 │   │   ├── hero1.jpg
@@ -155,6 +156,7 @@ Admin Page
 ├── tsconfig.json
 ├── yarn-error.log
 └── yarn.lock
+```
 
 #Setup and running instruction
 
